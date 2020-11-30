@@ -1,0 +1,15 @@
+
+<view class = "myLogin">
+  <image src="{{imageSrc}}">
+  </image>
+  <text>{{nickName}}
+  </text>
+  <input placeholder="Username" bindinput="InputUsername">
+  </input>
+  <input placeholder="Password" password="true" bindinput="InputPassword">
+  </input>
+
+  <button bindtap="SignIn" class = "button">
+  登录
+  </button>
+</view>

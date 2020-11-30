@@ -1,0 +1,29 @@
+.myLogin{
+  height: 1000rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.myLogin image{
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 50%;
+  margin: 20rpx;
+}
+
+.myLogin text{
+  color: #000;
+  margin: 20rpx;
+}
+
+.myLogin input{
+  margin: 20rpx;
+}
+
+.button{
+  background-color: lightblue;
+  color: black;
+}
