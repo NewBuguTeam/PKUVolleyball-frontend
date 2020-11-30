@@ -5,7 +5,89 @@ Page({
    * 页面的初始数据
    */
   data: {
+    pastMatchList: [{
+      date: "2020.12.2",
+      list:[{
+        time: "11.00",
+        group: "B",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1"
+      },
+      {
+        time: "11.00",
+        group: "B",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1"
+      }]
+    },
+    {
+      date: "2020.12.3",
+      list:[{
+          time: "11.00",
+          group: "B",
+          teamA: "信科",
+          teamB: "医学",
+          score: "3:1"
+        },
+        {
+          time: "11.00",
+          group: "B",
+          teamA: "信科",
+          teamB: "医学",
+          score: "3:1"
+        }]
+    }
+  ],
+  futureMatchList: [{
+    date: "2020.12.3",
+    list:[{
+        time: "11.00",
+        group: "B",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1",
+        umpireImageUrl:"../../images/addButton.jpg",
+        viceUmpireImageUrl:"../../images/addButton.jpg"
+      },
+      {
+        time: "11.00",
+        group: "B",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1",
+        umpireImageUrl:"../../images/addButton.jpg",
+        viceUmpireImageUrl:"../../images/addButton.jpg"
+      }]
+    },
+    {
+      date: "2020.12.4",
+      list:[{
+          time: "11.00",
+          group: "B",
+          teamA: "信科",
+          teamB: "医学",
+          score: "3:1",
+          umpireImageUrl:"../../images/forbidAddButton.jpg",
+          viceUmpireImageUrl:"../../images/forbidAddButton.jpg"
+        },
+        {
+          time: "11.00",
+          group: "B",
+          teamA: "信科",
+          teamB: "医学",
+          score: "3:1",
+          umpireImageUrl:"../../images/addButton.jpg",
+          viceUmpireImageUrl:"../../images/addButton.jpg"
+        }]
+    }
+  ],
     identity: "visitor"
+  },
+
+  ClickForMatchDetail: function(e){
+
   },
 
   /**

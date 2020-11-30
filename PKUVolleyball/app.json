@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/subpackage/myinfo/myinfo",
+    "pages/viewMatch/viewMatch",
     "pages/my/my",
     "pages/index/index",
     "pages/logs/logs",
-    
-    "pages/viewMatch/viewMatch",
     "pages/viewGroup/viewGroup"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

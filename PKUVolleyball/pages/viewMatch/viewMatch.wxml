@@ -1,1 +1,47 @@
+<!--pages/exploreActivity/exploreActivity.wxml-->
+<scroll-view scroll-y 
+    bindscrolltolower="bottomHandler" scrolltoupper="upperHandler" class="scrollPage">
+  <view class="MatchListPerDay" wx:for="{{pastMatchList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+    <view class="DateView">
+      <text class = "DateText">{{item.date}}</text>
+    </view>
+    <view class="MatchCard" bindtap="ClickForMatchDetail" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+      <view class="InfoView">
+        <text class="InfoText"> {{item.time}}</text>
+        <text class="InfoText"> {{item.group}}组</text>
+      </view>
+      <view class="TeamACard">
+        <text class="TeamNameText">{{item.teamA}}</text>
+      </view>
+      <view class="TeamBCard">
+        <text class="TeamNameText">{{item.teamB}}</text>
+      </view>
+      <text class="ScoreText">{{item.score}}</text>
+    </view>
+  </view>
+
+  <view class="MatchListPerDay" wx:for="{{futureMatchList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+    <view class="DateView">
+      <text class = "DateText">{{item.date}}</text>
+    </view>
+    <view class="MatchCard" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+      <view class="InfoView">
+        <text class="InfoText"> {{item.time}}</text>
+        <text class="InfoText"> {{item.group}}组</text>
+      </view>
+      <view class="TeamACardLight">
+        <text class="TeamNameText">{{item.teamA}}</text>
+      </view>
+      <view class="TeamBCardLight">
+        <text class="TeamNameText">{{item.teamB}}</text>
+      </view>
+      <view class="buttonArea">
+        <image src="{{item.umpireImageUrl}}" class="buttonImage"></image>
+        <image src="{{item.viceUmpireImageUrl}}" class="buttonImage"></image>
+      </view>
+    </view>
+  </view>
+  
+</scroll-view>
+
 
