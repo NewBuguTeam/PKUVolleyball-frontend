@@ -1,0 +1,67 @@
+/* pages/view/viewMatch.wxss */
+.DateView{
+  display: flex;
+  flex-direction: row;
+  margin: 10rpx;
+}
+
+.DateText{
+  font-size: medium;
+}
+
+.MatchCard{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1rpx;
+  margin: 20rpx;
+}
+
+.TeamCard{
+  height: 80rpx;
+  width: 240rpx;
+  display: flex;
+  margin: 5rpx;
+  border-radius: 5%;
+  justify-content: center;
+}
+
+.TeamNameText{
+  font-size: medium;
+  margin: 10rpx;
+  position: relative;
+  color: white;
+}
+
+.InfoText{
+  margin: 2rpx;
+  font-size: small;
+}
+
+.ScoreText{
+  margin: 15rpx;
+  font-size: larger;
+  letter-spacing: 0.3rem;
+}
+
+.InfoView{
+  left: 30rpx;
+  height: 80rpx;
+  width: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.buttonArea{
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+}
+
+.buttonImage{
+  height: 50rpx;
+  width: 50rpx;
+  margin: 5rpx;
+  border-radius: 50%;
+}

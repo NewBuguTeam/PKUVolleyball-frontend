@@ -1,0 +1,52 @@
+.myLogin{
+  height: 1000rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.myLogin image{
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 50%;
+  margin: 20rpx;
+}
+
+.myLogin text{
+  color: #000;
+  margin: 20rpx;
+}
+
+.myLogin input{
+  margin: 20rpx;
+}
+
+.button{
+  background-color: lightblue;
+  color: black;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+image{
+  border-radius: 50%;
+  height: 300rpx;
+  width: 300rpx;
+}
+
+.afterLogText{
+  font-size: larger;
+  margin: 20rpx;
+}
+
+.topBar{
+  display: flex;
+  flex-direction: row;
+}

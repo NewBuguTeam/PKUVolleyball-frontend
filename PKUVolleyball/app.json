@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/viewMatch/viewMatch",
+    "pages/my/my",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/viewGroup/viewGroup",
+    "pages/matchInfo/matchInfo"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#42A5F5",
+    "navigationBarTitleText": "北大排球",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#328EEB",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "编辑赛程",
+        "iconPath": "images/setting1.png",
+        "selectedIconPath": "images/setting2.png"
+      },
+      {
+        "pagePath": "pages/viewGroup/viewGroup",
+        "text": "查看分组",
+        "iconPath": "images/viewGroup3.png",
+        "selectedIconPath": "images/viewGroup4.png"
+      },
+      {
+        "pagePath": "pages/viewMatch/viewMatch",
+        "text": "查看赛程",
+        "iconPath": "images/viewMatch1.png",
+        "selectedIconPath": "images/viewMatch2.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "个人信息",
+        "iconPath": "images/my1.png",
+        "selectedIconPath": "images/my2.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

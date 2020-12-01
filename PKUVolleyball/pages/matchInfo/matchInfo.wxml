@@ -1,0 +1,26 @@
+<view class="container">
+ <view class="TeamsArea">
+    <view class="TeamArea">
+      <text class="TeamText">{{teamA}}</text>
+      <view class="TeamCard" style="background-color:#467fd7">
+          3
+      </view>
+    </view>
+
+    <view class="TeamArea">
+      <text class="TeamText">{{teamB}}</text>
+      <view class="TeamCard" style="background-color:#F93324">
+          1
+      </view>
+    </view>
+  </view>
+  <view class="InfoArea">
+    <text>{{date}} {{time}} 男子{{group}}组 {{place}}</text>
+    <view class="Line"></view>
+  </view>
+  <view class="ScoreArea">
+    <view class="ScoreBar" wx:for="{{scoreList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+      <text class="ScoreListText">{{item}}</text>
+    </view>
+  </view>
+</view>
