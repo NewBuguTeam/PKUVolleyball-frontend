@@ -1,10 +1,17 @@
 // pages/view/viewMatch.js
+const app=getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    numOfDatesRequesting: 2,
+    lastDate: "2020.12.4",
+    group: "B",
+    nullUrl: "",
+    identity: "umpire",
+    umpireIdentity: "umpire",
     pastMatchList: [{
       date: "2020.12.1",
       list:[{
@@ -14,6 +21,14 @@ Page({
         teamB: "医学",
         score: "3:1"
       },
+      {
+        time: "11.00",
+        group: "B",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1"
+      },
+
       {
         time: "11.00",
         group: "B",
@@ -49,7 +64,16 @@ Page({
         teamB: "医学",
         score: "3:1",
         umpireImageUrl:"../../images/wechatImage.jpg",
-        viceUmpireImageUrl:"../../images/addButton.jpg"
+        viceUmpireImageUrl:""
+      },
+      {
+        time: "11.00",
+        group: "C",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1",
+        umpireImageUrl:"",
+        viceUmpireImageUrl:""
       },
       {
         time: "11.00",
@@ -57,29 +81,29 @@ Page({
         teamA: "信科",
         teamB: "医学",
         score: "3:1",
-        umpireImageUrl:"../../images/addButton.jpg",
-        viceUmpireImageUrl:"../../images/addButton.jpg"
+        umpireImageUrl:"",
+        viceUmpireImageUrl:""
       }]
     },
     {
       date: "2020.12.4",
       list:[{
           time: "11.00",
-          group: "B",
+          group: "C",
           teamA: "信科",
           teamB: "医学",
           score: "3:1",
-          umpireImageUrl:"../../images/forbidAddButton.jpg",
-          viceUmpireImageUrl:"../../images/forbidAddButton.jpg"
+          umpireImageUrl:"",
+          viceUmpireImageUrl:""
         },
         {
           time: "11.00",
-          group: "B",
+          group: "C",
           teamA: "信科",
           teamB: "医学",
           score: "3:1",
-          umpireImageUrl:"../../images/addButton.jpg",
-          viceUmpireImageUrl:"../../images/addButton.jpg"
+          umpireImageUrl:"",
+          viceUmpireImageUrl:""
         }]
     }
   ],
@@ -91,7 +115,49 @@ Page({
     var index = e.currentTarget.id
     var query = JSON.stringify(that.data.pastMatchList[index])
     wx.navigateTo({
-      url: '../matchInfo/matchInfo?quey=' + query,
+      url: '../matchInfo/matchInfo',
+    })
+  },
+
+  getMatchList: function(){
+    let self = this;
+    wx.request({
+      url: app.globalData.rootUrl + '/viewMatches',
+      data: {
+        "numOfDatesRequesting": JSON.stringify(self.data.numOfDatesRequesting),
+        "lastDate": JSON.stringify(self.data.lastDate)
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8'
+      },
+      
+      success:function(res){
+          console.log('request getMatchList returns: ', res.data)
+          console.log('request getMatchList returns: ', res.data.alist)
+          let oldList = self.data.futureList,
+              newList = res.data.matchList;
+              
+          if (typeof self.data.matchlist !== "undefined")
+              oldList = self.data.matchlist
+          else
+              util.getWeekday(oldList)
+     
+          util.getWeekday(newList)
+          
+          let list = oldList.concat(newList);
+          
+          self.setData({
+              matchList: list,
+              lastDate: res.data.lastDate
+          })
+          
+          console.log(self.data.matchList)
+      },
+      fail: function(res) {
+          console.log('登陆失败！' + res.errMsg)
+      }
     })
   },
 

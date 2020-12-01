@@ -36,8 +36,35 @@
         <text class="TeamNameText">{{item.teamB}}</text>
       </view>
       <view class="buttonArea">
-        <image src="{{item.umpireImageUrl}}" class="buttonImage"></image>
-        <image src="{{item.viceUmpireImageUrl}}" class="buttonImage"></image>
+        <view wx:if="{{item.umpireImageUrl==nullUrl}}">
+          <view wx:if="{{item.identity==umpireIdentity}}">
+            <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
+          </view>
+          <view wx:elif="{{item.group==group}}">
+            <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
+          </view>
+          <view wx:else>
+            <image src="../../images/addButton.jpg" class="buttonImage"></image>
+          </view>
+        </view>
+        <view wx:else>
+          <image src="{{item.umpireImageUrl}}" class="buttonImage"></image>
+        </view>
+
+        <view wx:if="{{item.viceUmpireImageUrl==nullUrl}}">
+          <view wx:if="{{item.identity==umpireIdentity}}">
+            <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
+          </view>
+          <view wx:elif="{{item.group==group}}">
+            <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
+          </view>
+          <view wx:else>
+            <image src="../../images/addButton.jpg" class="buttonImage"></image>
+          </view>
+        </view>
+        <view wx:else>
+          <image src="{{item.viceUmpireImageUrl}}" class="buttonImage"></image>
+        </view>
       </view>
     </view>
   </view>

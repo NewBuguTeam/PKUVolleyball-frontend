@@ -1,12 +1,11 @@
 {
   "pages": [
-    
     "pages/viewMatch/viewMatch",
     "pages/my/my",
     "pages/index/index",
     "pages/logs/logs",
     "pages/viewGroup/viewGroup",
-    "pages/myinfo/myinfo"
+    "pages/matchInfo/matchInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,7 +26,6 @@
       {
         "pagePath": "pages/viewGroup/viewGroup",
         "text": "查看分组",
-        "iconHeight": "30rpx",
         "iconPath": "images/viewGroup3.png",
         "selectedIconPath": "images/viewGroup4.png"
       },

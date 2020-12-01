@@ -39,7 +39,8 @@
 
 .ScoreText{
   margin: 15rpx;
-  font-size: large;
+  font-size: larger;
+  letter-spacing: 0.3rem;
 }
 
 .InfoView{

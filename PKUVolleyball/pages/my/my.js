@@ -1,10 +1,13 @@
 // pages/my/my.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    identity: "visitor",
+    visitorIdentity: "visitor",
     nickName: "Visitor",
     imageSrc: "../../images/guest.png",
     username: "",
@@ -21,13 +24,20 @@ Page({
 
   InputPassword: function(e){
     this.setData({
-      username: e.detail.value
+      password: e.detail.value
   })
   },
 
   SignIn: function(e){
+    this.setData({
+      identity: "umpire",
+      nickName: "袁世平",
+      imageSrc: "../../images/wechatImage.jpg",
+      gameList: [],
+      department: "信息科学技术学院"
+    })
     wx.request({
-      url: app.globalData.rootUrl + 'user/UserInfo',
+      url: app.globalData.rootUrl + '/login',
       data: {
           username: JSON.stringify(username),
           password: JSON.stringify(password),
@@ -54,6 +64,16 @@ Page({
       fail: function(res) {
           console.log('登陆失败！' + res.errMsg)
       }
+    })
+  },
+
+  SignOut: function (e){
+    this.setData({
+      identity: "visitor",
+      nickName: "Visitor",
+      imageSrc: "../../images/guest.png",
+      gameList: [],
+      department: ""
     })
   },
 

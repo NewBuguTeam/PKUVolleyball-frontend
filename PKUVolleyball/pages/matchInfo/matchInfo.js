@@ -1,4 +1,4 @@
-// pages/myinfo/myinfo.js
+// pages/matchInfo/matchInfo.js
 Page({
 
   /**

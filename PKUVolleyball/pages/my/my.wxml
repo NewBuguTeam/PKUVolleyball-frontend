@@ -1,5 +1,5 @@
 
-<view class = "myLogin">
+<view class = "myLogin" wx:if="{{identity==visitorIdentity}}">
   <image src="{{imageSrc}}">
   </image>
   <text>{{nickName}}
@@ -11,5 +11,23 @@
 
   <button bindtap="SignIn" class = "button">
   登录
+  </button>
+</view>
+
+<view class="container" wx:else>
+  <text class="afterLogText">您好，{{identity}}</text>
+  <image src="{{imageSrc}}"></image>
+  <text class="afterLogText">{{nickName}}</text>
+  <text class="afterLogText">{{department}}</text>
+  <view class="topBar">
+    <text class="afterLogText">
+      即将执裁
+    </text>
+    <text class="afterLogText">
+      共执裁{{gameList.length}}场
+    </text>
+  </view>
+  <button bindtap="SignOut" class = "button">
+  退出登录
   </button>
 </view>
