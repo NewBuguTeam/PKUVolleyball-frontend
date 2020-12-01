@@ -1,0 +1,22 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+image{
+  border-radius: 50%;
+  height: 300rpx;
+  width: 300rpx;
+}
+
+text{
+  font-size: larger;
+  margin: 20rpx;
+}
+
+.topBar{
+  display: flex;
+  flex-direction: row;
+}

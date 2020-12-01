@@ -6,7 +6,7 @@ Page({
    */
   data: {
     pastMatchList: [{
-      date: "2020.12.2",
+      date: "2020.12.1",
       list:[{
         time: "11.00",
         group: "B",
@@ -23,7 +23,7 @@ Page({
       }]
     },
     {
-      date: "2020.12.3",
+      date: "2020.12.2",
       list:[{
           time: "11.00",
           group: "B",
@@ -48,7 +48,7 @@ Page({
         teamA: "信科",
         teamB: "医学",
         score: "3:1",
-        umpireImageUrl:"../../images/addButton.jpg",
+        umpireImageUrl:"../../images/wechatImage.jpg",
         viceUmpireImageUrl:"../../images/addButton.jpg"
       },
       {
@@ -87,7 +87,12 @@ Page({
   },
 
   ClickForMatchDetail: function(e){
-
+    var that = this
+    var index = e.currentTarget.id
+    var query = JSON.stringify(that.data.pastMatchList[index])
+    wx.navigateTo({
+      url: '../matchInfo/matchInfo?quey=' + query,
+    })
   },
 
   /**

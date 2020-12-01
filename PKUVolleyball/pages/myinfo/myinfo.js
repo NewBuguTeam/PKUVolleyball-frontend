@@ -1,4 +1,4 @@
-// pages/subpackage/myinfo/myinfo.js
+// pages/myinfo/myinfo.js
 Page({
 
   /**

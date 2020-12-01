@@ -16,41 +16,10 @@
   margin: 20rpx;
 }
 
-.TeamACard{
+.TeamCard{
   height: 80rpx;
   width: 240rpx;
   display: flex;
-  background-color:#467fd7;
-  margin: 5rpx;
-  border-radius: 5%;
-  justify-content: center;
-}
-
-.TeamBCard{
-  height: 80rpx;
-  width: 240rpx;
-  display: flex;
-  background-color:#f93324;
-  margin: 5rpx;
-  border-radius: 5%;
-  justify-content: center;
-}
-
-.TeamACardLight{
-  height: 80rpx;
-  width: 250rpx;
-  display: flex;
-  background-color:#83aae5;
-  margin: 5rpx;
-  border-radius: 5%;
-  justify-content: center;
-}
-
-.TeamBCardLight{
-  height: 80rpx;
-  width: 250rpx;
-  display: flex;
-  background-color:#fa7470;
   margin: 5rpx;
   border-radius: 5%;
   justify-content: center;
@@ -93,4 +62,5 @@
   height: 50rpx;
   width: 50rpx;
   margin: 5rpx;
+  border-radius: 50%;
 }

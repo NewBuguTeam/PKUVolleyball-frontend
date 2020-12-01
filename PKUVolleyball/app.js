@@ -35,6 +35,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    identity: "visitor"
+    identity: "visitor",
+    myInfoUrl: "pages/my/my"
   }
 })
