@@ -10,7 +10,7 @@ Page({
     lastDate: "2020.12.4",
     group: "B",
     nullUrl: "",
-    identity: "umpire",
+    identity: "visitor",
     umpireIdentity: "umpire",
     pastMatchList: [{
       date: "2020.12.1",
@@ -59,7 +59,7 @@ Page({
     date: "2020.12.3",
     list:[{
         time: "11.00",
-        group: "B",
+        group: "A",
         teamA: "信科",
         teamB: "医学",
         score: "3:1",
@@ -83,11 +83,37 @@ Page({
         score: "3:1",
         umpireImageUrl:"",
         viceUmpireImageUrl:""
+      },
+      {
+        time: "11.00",
+        group: "D",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1",
+        umpireImageUrl:"",
+        viceUmpireImageUrl:""
       }]
     },
     {
       date: "2020.12.4",
       list:[{
+        time: "11.00",
+        group: "A",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1",
+        umpireImageUrl:"../../images/wechatImage.jpg",
+        viceUmpireImageUrl:""
+      },
+      {
+        time: "11.00",
+        group: "B",
+        teamA: "信科",
+        teamB: "医学",
+        score: "3:1",
+        umpireImageUrl:"",
+        viceUmpireImageUrl:""
+      },{
           time: "11.00",
           group: "C",
           teamA: "信科",
@@ -98,7 +124,7 @@ Page({
         },
         {
           time: "11.00",
-          group: "C",
+          group: "B",
           teamA: "信科",
           teamB: "医学",
           score: "3:1",
@@ -106,8 +132,7 @@ Page({
           viceUmpireImageUrl:""
         }]
     }
-  ],
-    identity: "visitor"
+  ]
   },
 
   ClickForMatchDetail: function(e){
@@ -165,7 +190,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+  
   },
 
   /**
@@ -179,7 +204,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      identity: app.globalData.identity
+    })
+    console.log(this.data.identity)
+    console.log(app.globalData.identity)
   },
 
   /**

@@ -36,7 +36,9 @@ Page({
       gameList: [],
       department: "信息科学技术学院"
     })
-    wx.request({
+    app.globalData.identity = "umpire";
+    console.log(app.globalData.identity);
+    /*wx.request({
       url: app.globalData.rootUrl + '/login',
       data: {
           username: JSON.stringify(username),
@@ -64,7 +66,7 @@ Page({
       fail: function(res) {
           console.log('登陆失败！' + res.errMsg)
       }
-    })
+    })*/
   },
 
   SignOut: function (e){
@@ -75,6 +77,8 @@ Page({
       gameList: [],
       department: ""
     })
+    app.globalData.identity = "visitor";
+    console.log(app.globalData.identity);
   },
 
   /**
