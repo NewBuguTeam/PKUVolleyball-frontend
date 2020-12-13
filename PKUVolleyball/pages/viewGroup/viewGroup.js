@@ -5,7 +5,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    colors: ["#FF375F","#95C8FA","#FFD60A","#30D158"],
+    groupList:[{
+      groupName: "A",
+      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
+    },{
+      groupName: "B",
+      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
+    },{
+      groupName: "C",
+      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
+    },{
+      groupName: "D",
+      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
+    },]
   },
 
   /**

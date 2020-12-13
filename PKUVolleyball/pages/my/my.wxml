@@ -19,13 +19,22 @@
   <image src="{{imageSrc}}"></image>
   <text class="afterLogText">{{nickName}}</text>
   <text class="afterLogText">{{department}}</text>
-  <view class="topBar">
-    <text class="afterLogText">
-      即将执裁
-    </text>
-    <text class="afterLogText">
-      共执裁{{gameList.length}}场
-    </text>
+  <view  wx:if="{{identity==umpireIdentity}}">
+    <view class="topBar">
+      <text class="afterLogText">
+        即将执裁{{gameList.length}}场
+      </text>
+    </view>
+    <view class="GameList" wx:for="{{gameList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+    {{item.date}} {{item.time}} {{item.place}} {{item.teamA}} vs {{item.teamB}}
+    </view>
+    <calendar
+    config="{{calendarConfig}}"> </calendar>
+  </view>
+  <view wx:else>
+    <button bindtap="addUser" class = "addButton">
+      添加用户
+    </button>
   </view>
   <button bindtap="SignOut" class = "button">
   退出登录

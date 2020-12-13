@@ -24,7 +24,7 @@
     <view class="DateView">
       <text class = "DateText">{{item.date}}</text>
     </view>
-    <view class="MatchCard" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+    <view class="MatchCard" bindtap="ClickForMatchDetail" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
       <view class="InfoView">
         <text class="InfoText"> {{item.time}}</text>
         <text class="InfoText"> {{item.group}}组</text>
@@ -41,7 +41,7 @@
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
-            <image src="../../images/addButton.jpg" class="buttonImage"></image>
+            <image src="../../images/addButton.jpg" class="buttonImage" bindtap="umpireRequest"></image>
           </view>
         </view>
         <view wx:else>
@@ -53,7 +53,7 @@
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
-            <image src="../../images/addButton.jpg" class="buttonImage"></image>
+            <image src="../../images/addButton.jpg" class="buttonImage" bindtap="umpireRequest"></image>
           </view>
         </view>
         <view wx:else>

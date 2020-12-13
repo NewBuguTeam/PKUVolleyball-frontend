@@ -1,0 +1,25 @@
+/* pages/addUser/addUser.wxss */
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20rpx;
+}
+
+input{
+  font-size: larger;
+  margin: 20rpx;
+}
+
+button{
+  margin: 20rpx;
+  background-color: turquoise;
+}
+
+radio-group{
+  margin: 20rpx;
+}
+
+radio{
+  margin: 30rpx;
+}

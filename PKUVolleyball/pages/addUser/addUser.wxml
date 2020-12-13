@@ -1,0 +1,10 @@
+<view class="container">
+  <input placeholder="Username" bindinput="inputUsername"></input>
+  <input placeholder="Password" bindinput="inputPassword"></input>
+  <radio-group bindchange="changeRadio">
+    <radio value="true" checked="true">管理员</radio>
+    <radio value="false">裁判</radio>
+  </radio-group>
+  
+  <button bindtap="addUser">创建用户</button>
+</view>

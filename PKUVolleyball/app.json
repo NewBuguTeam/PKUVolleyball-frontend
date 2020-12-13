@@ -1,17 +1,19 @@
 {
   "pages": [
-    "pages/viewMatch/viewMatch",
+    
     "pages/my/my",
+    "pages/viewGroup/viewGroup",
+    "pages/viewMatch/viewMatch",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/viewGroup/viewGroup",
+    "pages/addUser/addUser",
     "pages/matchInfo/matchInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#42A5F5",
     "navigationBarTitleText": "北大排球",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#000000",

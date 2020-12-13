@@ -26,6 +26,12 @@
 .button{
   background-color: lightblue;
   color: black;
+  margin: 20rpx;
+}
+
+.addButton{
+  background-color: turquoise;
+  margin: 20rpx;
 }
 
 .container{
@@ -49,4 +55,11 @@ image{
 .topBar{
   display: flex;
   flex-direction: row;
+}
+
+.GameList{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20rpx;
 }

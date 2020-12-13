@@ -1,2 +1,13 @@
 <!--pages/viewGroup/viewGroup.wxml-->
-<text>pages/viewGroup/viewGroup.wxml</text>
+<view class="container">
+  <view class="GroupArea" wx:for="{{groupList}}" wx:key="i" wx:for-index="i">
+    <view class="GroupName">
+      <view class="GroupNameText">
+        {{item.groupName}}
+      </view>
+    </view>
+    <view class="TeamCard" wx:for="{{item.teamList}}" wx:key="j" wx:for-index="j" id="{{j}}" style="background-color:{{colors[i]}}">
+        {{item}}
+    </view>
+  </view>
+</view>

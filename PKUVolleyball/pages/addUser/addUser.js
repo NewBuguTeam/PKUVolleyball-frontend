@@ -1,46 +1,43 @@
-// pages/my/my.js
-const app = getApp();
+// pages/addUser/addUser.js
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    calendarConfig: {
-      theme: 'default' // 日历主题，目前共两款可选择，默认 default 及 elegant，自定义主题色在参考 /theme 文件夹
-    },
-    identity: "visitor",
-    visitorIdentity: "visitor",
-    umpireIdentity: "umpire",
-    nickName: "Visitor",
-    imageSrc: "../../images/guest.png",
-    username: "",
-    password: "",
-    gameList: [],
-    department: ""
-    
+    isAdmin : true,
+    username : "",
+    password : ""
   },
 
-  InputUsername: function(e){
+  inputUsername : function(e){
     this.setData({
-      username: e.detail.value
-  })
+      username : e.detail.value
+    })
   },
 
-  InputPassword: function(e){
+  inputPassword : function(e){
     this.setData({
-      password: e.detail.value
-  })
+      password : e.detail.value
+    })
   },
 
-  SignIn: function(e){
-    var self = this;
-    console.log(app.globalData.identity);
+  changeRadio: function(e){
+    this.setData({
+      isAdmin: e.detail.value
+    })
+    console.log(this.data.isAdmin);
+  },
+
+  addUser: function(e){
+    var self = this
     wx.request({
-      url: app.globalData.rootUrl + '/login',
+      url: app.globalData.rootUrl + 'admin/addUser',
       data: {
           username: JSON.stringify(self.data.username),
           password: JSON.stringify(self.data.password),
+          isAdmin: JSON.stringify(self.data.isAdmin)
       },
       method: 'POST',
       header: {
@@ -51,10 +48,9 @@ Page({
       success: function(res){
           console.log('request getActList returns: ', res.data)
           console.log('request getActList returns: ', res.data.alist)
-          
           if(res.data.isAdmin == false)
             self.setData({
-              identity: "umpire"
+              identity: "Umpire"
             })
           else
             self.setData({
@@ -69,24 +65,6 @@ Page({
       fail: function(res) {
           console.log('登陆失败！' + res.errMsg)
       }
-    })
-  },
-
-  SignOut: function (e){
-    this.setData({
-      identity: "visitor",
-      nickName: "Visitor",
-      imageSrc: "../../images/guest.png",
-      gameList: [],
-      department: ""
-    })
-    app.globalData.identity = "visitor";
-    console.log(app.globalData.identity);
-  },
-
-  addUser: function(e){
-    wx.navigateTo({
-      url: '../addUser/addUser',
     })
   },
 
