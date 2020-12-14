@@ -1,12 +1,11 @@
 {
   "pages": [
-    
     "pages/my/my",
+    "pages/addUser/addUser",
     "pages/viewGroup/viewGroup",
     "pages/viewMatch/viewMatch",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/addUser/addUser",
     "pages/matchInfo/matchInfo"
   ],
   "window": {

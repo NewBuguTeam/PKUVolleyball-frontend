@@ -12,7 +12,7 @@ input{
 }
 
 button{
-  margin: 20rpx;
+  margin-top: 100rpx;
   background-color: turquoise;
 }
 
@@ -22,4 +22,12 @@ radio-group{
 
 radio{
   margin: 30rpx;
+}
+
+.picker{
+  margin: 20rpx;
+  display: flex;
+  align-self: flex-start;
+  margin-left: 150rpx;
+  font-size: large;
 }

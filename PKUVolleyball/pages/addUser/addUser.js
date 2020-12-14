@@ -1,3 +1,5 @@
+const util = require("../../utils/util")
+
 // pages/addUser/addUser.js
 var app = getApp()
 Page({
@@ -8,7 +10,8 @@ Page({
   data: {
     isAdmin : true,
     username : "",
-    password : ""
+    password : "",
+    schoolList : ['数学', '物理', '化学', '生科', '城环', '地空', '心理', '信科', '工学', '软微', '环科', '国关', '法学', '信管', '社会', '政管', '教育', '新传', '中文', '历史', '考古', '哲学', '外院', '艺术', '医学', '经济', '光华', '国发', '元培']
   },
 
   inputUsername : function(e){
@@ -20,6 +23,11 @@ Page({
   inputPassword : function(e){
     this.setData({
       password : e.detail.value
+    })
+  },
+  bindPickerChange: function(e){
+    this.setData({
+      school : this.data.schoolList[e.detail.value]
     })
   },
 
@@ -35,35 +43,29 @@ Page({
     wx.request({
       url: app.globalData.rootUrl + 'admin/addUser',
       data: {
-          username: JSON.stringify(self.data.username),
-          password: JSON.stringify(self.data.password),
-          isAdmin: JSON.stringify(self.data.isAdmin)
+          newUsername: JSON.stringify(self.data.username),
+          newPassword: JSON.stringify(self.data.password),
+          newIsAdmin: JSON.stringify(self.data.isAdmin),
+          newSchool: JSON.stringify(self.data.school)
       },
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        'chartset': 'utf-8'
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
       },
       
       success: function(res){
-          console.log('request getActList returns: ', res.data)
-          console.log('request getActList returns: ', res.data.alist)
-          if(res.data.isAdmin == false)
-            self.setData({
-              identity: "Umpire"
-            })
-          else
-            self.setData({
-              identity: "admin"
-            })
-          self.setData({
-              imageSrc: res.data.image,
-              department: res.data.department
-            })
-          
+          console.log('request returns: ', res.data)
+          util.showMassage("创建成功!")
       },
       fail: function(res) {
+        if(res.errMsg == "未登录" && app.globalData.identity != "visitor"){
+          util.cookieDue()
+        }
+        else{
           console.log('登陆失败！' + res.errMsg)
+        }
       }
     })
   },

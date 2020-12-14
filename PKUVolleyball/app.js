@@ -37,6 +37,9 @@ App({
     rootUrl: 'http://127.0.0.1:5000/',
     userInfo: null,
     identity: "visitor",
-    myInfoUrl: "pages/my/my"
+    session: "",
+    myInfoUrl: "pages/my/my",
+    group: "",
+    gender: ""
   }
 })

@@ -1,17 +1,22 @@
 /* pages/viewGroup/viewGroup.wxss */
+.GroupsArea{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .GroupArea{
-  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10rpx;
+  align-self: flex-start;
 }
 
 .GroupName{
   display: flex;
   flex-direction: row;
   align-items: center;
-  text-size-adjust: auto;
 }
 
 .GroupNameText{
@@ -22,18 +27,29 @@
   display: flex;
   width: 100%;
   height: 100%;
-  font-size: larger;
+  font-size: large;
   color: white;
-  text-align: center;
   justify-content: center;
   border-radius: 5%;
-  margin: 5rpx;
+  margin: 3rpx;
 }
 
 .container{
   display: flex;
-  height: 100%;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.uploadArea{
+  display: flex;
+}
+
+button{
+  margin: 30rpx;
+  background-color: lightblue;
+}
+
+.RowAlignGroup{
+  display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
 }

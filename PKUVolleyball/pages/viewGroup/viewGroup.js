@@ -1,31 +1,67 @@
 // pages/viewGroup/viewGroup.js
+var app = getApp()
+const util = require("../../utils/util")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    colors: ["#FF375F","#95C8FA","#FFD60A","#30D158"],
-    groupList:[{
-      groupName: "A",
-      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
-    },{
-      groupName: "B",
-      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
-    },{
-      groupName: "C",
-      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
-    },{
-      groupName: "D",
-      teamList: ["信科", "医学", "物院", "数院", "地空", "历史"]
-    },]
+    nameOfGender:{"M": "联赛组", "F": "女子组"},
+    identity: "visitor",
+    adminIdentity: "admin",
+    //colors: ["#FF375F","#95C8FA","#FFD60A","#30D158"],
+    colors: ["#FF7F50",  "#FFA07A", "#FFDEAD", "#F0E68C"],
+    groupLists: []
+  },
+
+  uploadGroup: function(e){
+    var self = this
+    wx.chooseMessageFile({
+      count: 1,
+      type: 'file',
+      success(res){
+        const tempFilePaths = res.tempFiles
+        console.log("", res)
+        wx.uploadFile({
+          filePath: tempFilePaths[0],
+          name: 'file',
+          url: app.globalData.rootUrl + 'admin/uploadGroup',
+          success(res){
+            self.data.setData({
+              groupLists : res.groupLists
+            })
+          }
+        })
+      }
+    })
+   
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + 'viewGrouping',
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success: function(res){
+        console.log(res.data)
+        self.setData({
+          groupLists : res.data.groupLists
+        })
+      },
+      fail: function(res){
+        console.log(res.errMsg)
+      }
+    })
   },
 
   /**
@@ -39,7 +75,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      identity: app.globalData.identity
+    })
+    console.log(this.data.identity)
+    console.log(app.globalData.identity)
   },
 
   /**

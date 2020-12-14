@@ -1,5 +1,7 @@
 // pages/my/my.js
-const app = getApp();
+const app = getApp()
+var storageTime = 30 * 60
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -17,8 +19,8 @@ Page({
     username: "",
     password: "",
     gameList: [],
-    department: ""
-    
+    school: "",
+    gender: ""
   },
 
   InputUsername: function(e){
@@ -45,25 +47,52 @@ Page({
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded',
-        'chartset': 'utf-8'
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
       },
       
       success: function(res){
-          console.log('request getActList returns: ', res.data)
-          console.log('request getActList returns: ', res.data.alist)
+          console.log('username:', self.data.username)
+          console.log('request returns: ', res.data)
+          if(res.data.success == false){
+            if(res.data.errorType == "username"){
+              util.showMassage("用户名错误!")
+            }
+            else if(res.data.errorType == "password"){
+              util.showMassage("密码错误!")
+            }
+            return
+          }
+          try{
+            var sessionID = res.cookies[0].substr(res.cookies[0].indexOf("=") + 1,
+            res.cookies[0].indexOf(";") - res.cookies[0].indexOf("=") - 1)
+            app.globalData.session = sessionID
+            util.putStorage("session", sessionID, storageTime)
+          }
+          catch(e){
+            console.log(e)
+          }
           
-          if(res.data.isAdmin == false)
+
+          if(res.data.isAdmin == false){
             self.setData({
               identity: "umpire"
             })
-          else
+            app.globalData.identity = "umpire"
+          }
+            
+          else{
             self.setData({
               identity: "admin"
             })
+            app.globalData.identity = "admin"
+          }
+            
           self.setData({
               imageSrc: res.data.image,
-              department: res.data.department
+              school: res.data.school
             })
+          app.globalData.school = res.data.school
           
       },
       fail: function(res) {
@@ -73,15 +102,32 @@ Page({
   },
 
   SignOut: function (e){
-    this.setData({
-      identity: "visitor",
-      nickName: "Visitor",
-      imageSrc: "../../images/guest.png",
-      gameList: [],
-      department: ""
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + '/logout',
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success: function(res){
+        self.setData({
+          identity: "visitor",
+          nickName: "Visitor",
+          imageSrc: "../../images/guest.png",
+          gameList: [],
+          department: ""
+        })
+        util.removeStorage("session")
+        app.globalData.identity = "visitor";
+        console.log(app.globalData.identity);
+      },
+      fail: function(res){
+        console.log(res.errMsg)
+      }
     })
-    app.globalData.identity = "visitor";
-    console.log(app.globalData.identity);
   },
 
   addUser: function(e){
@@ -108,7 +154,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      identity: app.globalData.identity
+    })
+    console.log(this.data.identity)
+    console.log(app.globalData.identity)
   },
 
   /**

@@ -18,7 +18,7 @@
   <text class="afterLogText">您好，{{identity}}</text>
   <image src="{{imageSrc}}"></image>
   <text class="afterLogText">{{nickName}}</text>
-  <text class="afterLogText">{{department}}</text>
+  <text class="afterLogText">{{school}}</text>
   <view  wx:if="{{identity==umpireIdentity}}">
     <view class="topBar">
       <text class="afterLogText">
