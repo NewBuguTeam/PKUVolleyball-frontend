@@ -12,132 +12,15 @@ Page({
     pastDate: "2020.12.4",
     futureDate: "2020.12.15",
     group: "",
+    Mgroup: "",
+    Fgroup: "",
     nullUrl: "",
     identity: "visitor",
     umpireIdentity: "umpire",
     Date:{},
     monthDay: [31,28,31,30,31,30,31,31,30,31,30,31],
-    pastMatchList: [{
-      date: "2020.12.1",
-      list:[{
-        time: "11.00",
-        group: "B",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1"
-      },
-      {
-        time: "11.00",
-        group: "B",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1"
-      },
-
-      {
-        time: "11.00",
-        group: "B",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1"
-      }]
-    },
-    {
-      date: "2020.12.2",
-      list:[{
-          time: "11.00",
-          group: "B",
-          teamA: "信科",
-          teamB: "医学",
-          score: "3:1"
-        },
-        {
-          time: "11.00",
-          group: "B",
-          teamA: "信科",
-          teamB: "医学",
-          score: "3:1"
-        }]
-    }
-  ],
-  futureMatchList: [{
-    date: "2020.12.3",
-    list:[{
-        time: "11.00",
-        group: "A",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1",
-        umpireImageUrl:"../../images/wechatImage.jpg",
-        viceUmpireImageUrl:""
-      },
-      {
-        time: "11.00",
-        group: "C",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1",
-        umpireImageUrl:"",
-        viceUmpireImageUrl:""
-      },
-      {
-        time: "11.00",
-        group: "B",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1",
-        umpireImageUrl:"",
-        viceUmpireImageUrl:""
-      },
-      {
-        time: "11.00",
-        group: "D",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1",
-        umpireImageUrl:"",
-        viceUmpireImageUrl:""
-      }]
-    },
-    {
-      date: "2020.12.4",
-      list:[{
-        time: "11.00",
-        group: "A",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1",
-        umpireImageUrl:"../../images/wechatImage.jpg",
-        viceUmpireImageUrl:""
-      },
-      {
-        time: "11.00",
-        group: "B",
-        teamA: "信科",
-        teamB: "医学",
-        score: "3:1",
-        umpireImageUrl:"",
-        viceUmpireImageUrl:""
-      },{
-          time: "11.00",
-          group: "C",
-          teamA: "信科",
-          teamB: "医学",
-          score: "3:1",
-          umpireImageUrl:"",
-          viceUmpireImageUrl:""
-        },
-        {
-          time: "11.00",
-          group: "B",
-          teamA: "信科",
-          teamB: "医学",
-          score: "3:1",
-          umpireImageUrl:"",
-          viceUmpireImageUrl:""
-        }]
-    }
-  ]
+    pastMatchList: [],
+    futureMatchList: []
   },
 
   UpdateMonthDay: function(y){
@@ -305,7 +188,7 @@ Page({
           console.log(self.data.matchList)
       },
       fail: function(res) {
-          console.log('登陆失败！' + res.errMsg)
+          console.log('请求比赛失败！' + res.errMsg)
       }
     })
 
@@ -341,7 +224,7 @@ Page({
           console.log(self.data.matchList)
       },
       fail: function(res) {
-          console.log('登陆失败！' + res.errMsg)
+          console.log('请求比赛失败！' + res.errMsg)
       }
     })
   },
@@ -358,9 +241,32 @@ Page({
    */
   onShow: function () {
     this.setData({
-      identity: app.globalData.identity,
-      group: app.globalData.group
+      identity: app.globalData.identity
     })
+    let self = this
+    if(this.data.identity == "umpire"){
+      wx.request({
+        url: app.globalData.rootUrl + 'school2group/' + app.globalData.school,
+        method: 'GET',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'chartset': 'utf-8',
+          'Cookie': 'session=' + util.getStorage("session")
+        },
+        
+        success : function(res){
+          console.log("res:",res,res.data)
+          self.setData({
+            Mgroup: res.data.Mgroup,
+            Fgroup: res.data.Fgroup
+          })
+        },
+  
+        fail : function(res){
+  
+        }
+      })
+    }
     console.log(this.data.identity)
     console.log(app.globalData.identity)
   },

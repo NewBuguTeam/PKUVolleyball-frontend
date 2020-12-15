@@ -36,7 +36,7 @@
       </view>
       <view class="buttonArea">
         <view wx:if="{{item.umpireImageUrl==nullUrl}}">
-          <view wx:if="{{identity!=umpireIdentity || item.group==group}}">
+          <view wx:if="{{identity!=umpireIdentity || (item.group==Mgroup && item.gender=='M') || (item.group==Fgroup && item.gender=='F')}}">
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
@@ -48,7 +48,7 @@
         </view>
 
         <view wx:if="{{item.viceUmpireImageUrl==nullUrl}}">
-          <view wx:if="{{identity!=umpireIdentity || item.group==group}}">
+          <view wx:if="{{identity!=umpireIdentity || (item.group==Mgroup && item.gender=='M') || (item.group==Fgroup && item.gender=='F') }}">
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
