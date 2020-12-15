@@ -1,4 +1,5 @@
 // pages/view/viewMatch.js
+const util = require("../../utils/util")
 const app=getApp();
 Page({
 
@@ -8,7 +9,7 @@ Page({
   data: {
     numOfDatesRequesting: 2,
     lastDate: "2020.12.4",
-    group: "B",
+    group: "",
     nullUrl: "",
     identity: "visitor",
     umpireIdentity: "umpire",
@@ -160,7 +161,6 @@ Page({
       
       success:function(res){
           console.log('request getMatchList returns: ', res.data)
-          console.log('request getMatchList returns: ', res.data.alist)
           let oldList = self.data.futureList,
               newList = res.data.matchList;
               
@@ -186,6 +186,10 @@ Page({
     })
   },
 
+  umpireRequest: function(e){
+    console.log("Umpire Request")
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -205,7 +209,8 @@ Page({
    */
   onShow: function () {
     this.setData({
-      identity: app.globalData.identity
+      identity: app.globalData.identity,
+      group: app.globalData.group
     })
     console.log(this.data.identity)
     console.log(app.globalData.identity)

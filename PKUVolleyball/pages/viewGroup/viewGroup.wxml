@@ -1,2 +1,27 @@
 <!--pages/viewGroup/viewGroup.wxml-->
-<text>pages/viewGroup/viewGroup.wxml</text>
+<view class="container">
+  <view class="GroupsArea" wx:for="{{groupLists}}" wx:key="gender" wx:for-index="gender">
+    <view class="GroupNameText">
+      {{nameOfGender[item.gender]}}
+    </view>
+    <view class="RowAlignGroup">
+      <view class="GroupArea" wx:for="{{item.groupList}}" wx:key="i" wx:for-index="i">
+        <view class="GroupName">
+          <view class="GroupNameText">
+            {{item.name}}
+          </view>
+        </view>
+        <view class="TeamCard" wx:for="{{item.teamList}}" wx:key="j" wx:for-index="j" id="{{j}}" style="background-color:{{colors[i]}}">
+            {{item}}
+        </view>
+      </view>
+    </view>
+    
+  </view>
+  <view class = "uploadArea" wx:if="{{identity==adminIdentity}}">
+    <button bindtap="uploadGroup">
+      上传分组
+    </button>
+  </view>
+</view>
+
