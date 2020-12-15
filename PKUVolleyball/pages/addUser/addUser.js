@@ -11,6 +11,8 @@ Page({
     isAdmin : true,
     username : "",
     password : "",
+    encryptedPassword : "",
+    school : "",
     schoolList : ['数学', '物理', '化学', '生科', '城环', '地空', '心理', '信科', '工学', '软微', '环科', '国关', '法学', '信管', '社会', '政管', '教育', '新传', '中文', '历史', '考古', '哲学', '外院', '艺术', '医学', '经济', '光华', '国发', '元培']
   },
 
@@ -45,13 +47,13 @@ Page({
     encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey)
     var encStr = encrypt_rsa.encrypt(input_rsa)
     encStr = RSA.hex2b64(encStr)
-    this.data.password = encStr
+    this.data.encryptedPassword = encStr
   },
 
   decryptPassword: function(){
     var decrypt_rsa = new RSA.RSAKey()
     decrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.privateKey)
-    var encStr = RSA.b64tohex(this.data.password);
+    var encStr = RSA.b64tohex(this.data.encryptedPassword);
     var decStr = decrypt_rsa.decrypt(encStr)
     this.data.password = decStr
   },

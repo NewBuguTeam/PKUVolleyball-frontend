@@ -1,4 +1,3 @@
-<!--pages/exploreActivity/exploreActivity.wxml-->
 <scroll-view scroll-y 
     bindscrolltolower="bottomHandler" scrolltoupper="upperHandler" class="scrollPage">
   <view class="MatchListPerDay" wx:for="{{pastMatchList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
@@ -8,7 +7,7 @@
     <view class="MatchCard" bindtap="ClickForMatchDetail" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
       <view class="InfoView">
         <text class="InfoText"> {{item.time}}</text>
-        <text class="InfoText"> {{item.group}}组</text>
+        <text class="InfoText"> {{genderName[item.gender]}}{{item.group}}</text>
       </view>
       <view class="TeamCard" style="background-color:#467fd7">
         <text class="TeamNameText">{{item.teamA}}</text>
@@ -27,7 +26,7 @@
     <view class="MatchCard" bindtap="ClickForMatchDetail" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
       <view class="InfoView">
         <text class="InfoText"> {{item.time}}</text>
-        <text class="InfoText"> {{item.group}}组</text>
+        <text class="InfoText"> {{genderName[item.gender]}}{{item.group}}</text>
       </view>
       <view class="TeamCard" style="background-color:#83aae5">
         <text class="TeamNameText">{{item.teamA}}</text>
