@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/viewMatch/viewMatch",
     "pages/viewGroup/viewGroup",
     "pages/my/my",
     "pages/addUser/addUser",
-    "pages/viewMatch/viewMatch",
     "pages/index/index",
     "pages/logs/logs",
     "pages/matchInfo/matchInfo"

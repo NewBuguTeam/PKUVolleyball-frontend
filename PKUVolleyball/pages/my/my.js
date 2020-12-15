@@ -20,6 +20,7 @@ Page({
     imageSrc: "../../images/guest.png",
     username: "",
     password: "",
+    encryptedPassword: "",
     gameList: [],
     school: "",
     gender: ""
@@ -43,13 +44,13 @@ Page({
     encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey)
     var encStr = encrypt_rsa.encrypt(input_rsa)
     encStr = RSA.hex2b64(encStr)
-    this.data.password = encStr
+    this.data.encryptedPassword = encStr
   },
 
   decryptPassword: function(){
     var decrypt_rsa = new RSA.RSAKey()
     decrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.privateKey)
-    var encStr = RSA.b64tohex(this.data.password);
+    var encStr = RSA.b64tohex(this.data.encryptedPassword);
     var decStr = decrypt_rsa.decrypt(encStr)
     this.data.password = decStr
   },
