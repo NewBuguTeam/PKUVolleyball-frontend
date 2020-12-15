@@ -1,6 +1,7 @@
 /* pages/viewGroup/viewGroup.wxss */
 .GroupsArea{
   display: flex;
+  margin-top: 70rpx;
   flex-direction: column;
   justify-content: space-around;
 }
@@ -17,6 +18,12 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.GenderName{
+  font-size: x-large;
+  align-self: flex-start;
+  margin-left: -60rpx;
 }
 
 .GroupNameText{
@@ -45,7 +52,7 @@
 }
 
 button{
-  margin: 30rpx;
+  margin-top: 60rpx;
   background-color: lightblue;
 }
 
