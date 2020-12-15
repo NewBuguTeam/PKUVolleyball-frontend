@@ -13,6 +13,7 @@ Page({
     calendarConfig: {
       theme: 'default' // 日历主题，目前共两款可选择，默认 default 及 elegant，自定义主题色在参考 /theme 文件夹
     },
+    identityName: {"visitor": "游客", "umpire": "裁判", "admin": "管理员"},
     identity: "visitor",
     visitorIdentity: "visitor",
     umpireIdentity: "umpire",
@@ -58,7 +59,7 @@ Page({
   SignIn: function(e){
     var self = this;
     this.encryptPassword()
-    console.log("加密后", this.data.password)
+    console.log("加密后", this.data.encryptedassword)
     this.decryptPassword()
     console.log("解密后", this.data.password)
     console.log(app.globalData.identity);
@@ -114,7 +115,7 @@ Page({
           }
             
           self.setData({
-              imageSrc: res.data.image,
+              imageSrc: "../../images/icon1.jpg",
               school: res.data.school
             })
           app.globalData.school = res.data.school

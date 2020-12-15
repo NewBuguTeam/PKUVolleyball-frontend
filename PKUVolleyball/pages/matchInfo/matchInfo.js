@@ -1,24 +1,39 @@
 // pages/matchInfo/matchInfo.js
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    teamA: "信科",
-    teamB: "医学",
-    date: "2020.12.2",
-    time: "11:00",
-    group: "A",
-    place: "五四排球场",
-    scoreList:["25:17", "17:25", "25:17", "25:17", ""]
+    genderName : {"M": "联赛", "F": "女子"},
+    teamA: "",
+    teamAPoint: "",
+    teamB: "",
+    teamBPoint: "",
+    date: "",
+    time: "",
+    group: "",
+    place: "",
+    scoreList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var matchInfo = app.globalData.matchInfo
+    this.setData({
+      teamA: matchInfo.teamA,
+      teamB: matchInfo.teamB,
+      date: matchInfo.date,
+      time: matchInfo.time,
+      group: this.data.genderName[matchInfo.gender] + matchInfo.group,
+      place: matchInfo.location,
+      teamAPoint: matchInfo.score.split(':')[0],
+      teamBPoint: matchInfo.score.split(':')[1]
 
+    })
   },
 
   /**
