@@ -1,5 +1,5 @@
 const util = require("../../utils/util")
-
+var RSA = require('../../utils/wx_rsa.js')
 // pages/addUser/addUser.js
 var app = getApp()
 Page({
@@ -25,6 +25,7 @@ Page({
       password : e.detail.value
     })
   },
+
   bindPickerChange: function(e){
     this.setData({
       school : this.data.schoolList[e.detail.value]
@@ -38,8 +39,29 @@ Page({
     console.log(this.data.isAdmin);
   },
 
+  encryptPassword: function(){
+    var input_rsa = this.data.password
+    var encrypt_rsa = new RSA.RSAKey()
+    encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey)
+    var encStr = encrypt_rsa.encrypt(input_rsa)
+    encStr = RSA.hex2b64(encStr)
+    this.data.password = encStr
+  },
+
+  decryptPassword: function(){
+    var decrypt_rsa = new RSA.RSAKey()
+    decrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.privateKey)
+    var encStr = RSA.b64tohex(this.data.password);
+    var decStr = decrypt_rsa.decrypt(encStr)
+    this.data.password = decStr
+  },
+
   addUser: function(e){
     var self = this
+    this.encryptPassword()
+    console.log(this.data.password)
+    this.decryptPassword()
+    console.log(this.data.password)
     wx.request({
       url: app.globalData.rootUrl + 'admin/addUser',
       data: {

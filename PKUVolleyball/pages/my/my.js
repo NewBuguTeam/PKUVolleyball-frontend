@@ -2,6 +2,8 @@
 const app = getApp()
 var storageTime = 30 * 60
 var util = require('../../utils/util.js')
+var RSA = require('../../utils/wx_rsa.js')
+var Key = require('../../utils/Key.js')
 Page({
 
   /**
@@ -32,11 +34,32 @@ Page({
   InputPassword: function(e){
     this.setData({
       password: e.detail.value
-  })
+    })
+  },
+
+  encryptPassword: function(){
+    var input_rsa = this.data.password
+    var encrypt_rsa = new RSA.RSAKey()
+    encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey)
+    var encStr = encrypt_rsa.encrypt(input_rsa)
+    encStr = RSA.hex2b64(encStr)
+    this.data.password = encStr
+  },
+
+  decryptPassword: function(){
+    var decrypt_rsa = new RSA.RSAKey()
+    decrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.privateKey)
+    var encStr = RSA.b64tohex(this.data.password);
+    var decStr = decrypt_rsa.decrypt(encStr)
+    this.data.password = decStr
   },
 
   SignIn: function(e){
     var self = this;
+    this.encryptPassword()
+    console.log("加密后", this.data.password)
+    this.decryptPassword()
+    console.log("解密后", this.data.password)
     console.log(app.globalData.identity);
     wx.request({
       url: app.globalData.rootUrl + '/login',
@@ -53,6 +76,7 @@ Page({
       
       success: function(res){
           console.log('username:', self.data.username)
+          console.log("password：", self.data.password)
           console.log('request returns: ', res.data)
           if(res.data.success == false){
             if(res.data.errorType == "username"){
@@ -140,7 +164,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    app.globalData.privateKey = Key.privateKey
+    // console.log(privateKey)
   },
 
   /**
