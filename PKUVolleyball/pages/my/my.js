@@ -3,8 +3,6 @@ const app = getApp()
 var storageTime = 30 * 60
 var util = require('../../utils/util.js')
 var RSA = require('../../utils/wx_rsa.js')
-var publicKey = "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDQ6JeGf2mKaMyyPjY/AcJU07lHDQaKLe4+Pr5lCNUR8XhRxVQQQW9BX23lgbxqWYSGlosANZEETqPWcnZx4a76ARGhZ/agirsbGaElFPiK9ejHxj5RPhDWia3Y2nmv8h2f7UdGfZtIOs+St/fNwPfhehWPCjqlP9TI3VZMRosBwIDAQAB-----END PUBLIC KEY-----"
-var privateKey
 var Key = require('../../utils/Key.js')
 Page({
 
@@ -34,18 +32,34 @@ Page({
   },
 
   InputPassword: function(e){
-    var input_rsa = e.detail.value;
-    var encrypt_rsa = new RSA.RSAKey();
-    encrypt_rsa = RSA.KEYUTIL.getKey(publicKey);
-    var encStr = encrypt_rsa.encrypt(input_rsa)
-    encStr = RSA.hex2b64(encStr);
     this.setData({
-      password: encStr
+      password: e.detail.value
     })
+  },
+
+  encryptPassword: function(){
+    var input_rsa = this.data.password
+    var encrypt_rsa = new RSA.RSAKey()
+    encrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.publicKey)
+    var encStr = encrypt_rsa.encrypt(input_rsa)
+    encStr = RSA.hex2b64(encStr)
+    this.data.password = encStr
+  },
+
+  decryptPassword: function(){
+    var decrypt_rsa = new RSA.RSAKey()
+    decrypt_rsa = RSA.KEYUTIL.getKey(app.globalData.privateKey)
+    var encStr = RSA.b64tohex(this.data.password);
+    var decStr = decrypt_rsa.decrypt(encStr)
+    this.data.password = decStr
   },
 
   SignIn: function(e){
     var self = this;
+    this.encryptPassword()
+    console.log("加密后", this.data.password)
+    this.decryptPassword()
+    console.log("解密后", this.data.password)
     console.log(app.globalData.identity);
     wx.request({
       url: app.globalData.rootUrl + '/login',
@@ -150,7 +164,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    privateKey = Key.privateKey
+    app.globalData.privateKey = Key.privateKey
     // console.log(privateKey)
   },
 
