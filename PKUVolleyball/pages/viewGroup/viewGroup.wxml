@@ -1,7 +1,7 @@
 <!--pages/viewGroup/viewGroup.wxml-->
 <view class="container">
   <view class="GroupsArea" wx:for="{{groupLists}}" wx:key="gender" wx:for-index="gender">
-    <view class="GroupNameText">
+    <view class="GenderName">
       {{nameOfGender[item.gender]}}
     </view>
     <view class="RowAlignGroup">
