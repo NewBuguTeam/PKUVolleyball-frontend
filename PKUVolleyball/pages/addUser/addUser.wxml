@@ -1,0 +1,19 @@
+<view class="container">
+  <input placeholder="Username" bindinput="inputUsername"></input>
+  <input placeholder="Password" bindinput="inputPassword"></input>
+  
+  <radio-group bindchange="changeRadio">
+    <radio value="true" checked="true">管理员</radio>
+    <radio value="false">裁判</radio>
+  </radio-group>
+
+  <view class = "picker">
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{schoolList}}">
+      <view class = "pickerText">
+        院系：{{school}}
+      </view> 
+    </picker>
+  </view>
+  
+  <button bindtap="addUser">创建用户</button>
+</view>

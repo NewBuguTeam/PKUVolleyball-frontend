@@ -3,19 +3,19 @@
     <view class="TeamArea">
       <text class="TeamText">{{teamA}}</text>
       <view class="TeamCard" style="background-color:#467fd7">
-          3
+          {{teamAPoint}}
       </view>
     </view>
 
     <view class="TeamArea">
       <text class="TeamText">{{teamB}}</text>
       <view class="TeamCard" style="background-color:#F93324">
-          1
+          {{teamBPoint}}
       </view>
     </view>
   </view>
   <view class="InfoArea">
-    <text>{{date}} {{time}} 男子{{group}}组 {{place}}</text>
+    <text>{{date}} {{time}} {{group}}组 {{place}}</text>
     <view class="Line"></view>
   </view>
   <view class="ScoreArea">
