@@ -15,10 +15,9 @@
 </view>
 
 <view class="container" wx:else>
-  <text class="afterLogText">您好，{{identity}}</text>
+  <text class="afterLogText">您好，{{username}}</text>
   <image src="{{imageSrc}}"></image>
-  <text class="afterLogText">{{nickName}}</text>
-  <text class="afterLogText">{{school}}</text>
+  <text class="afterLogText">{{school}} {{identityName[identity]}}</text>
   <view  wx:if="{{identity==umpireIdentity}}">
     <view class="topBar">
       <text class="afterLogText">

@@ -61,6 +61,8 @@ Page({
     var that = this
     var index = e.currentTarget.id
     var query = JSON.stringify(that.data.pastMatchList[index])
+    console.log(e.currentTarget.dataset.item)
+    app.globalData.matchInfo = e.currentTarget.dataset.item
     wx.navigateTo({
       url: '../matchInfo/matchInfo',
     })
@@ -117,11 +119,13 @@ Page({
       }
       let item = {
         time: this.getTime(oldList[key].time),
+        date: this.getDateString(curDate),
         gender: oldList[key].gender, 
         group: oldList[key].for_group_X_or_knockout_X,
         teamA: oldList[key].teamA,
         teamB: oldList[key].teamB,
         score: oldList[key].point,
+        location: oldList[key].location,
         umpireImageUrl: oldList[key].umpireIcon,
         viceUmpireImageUrl: oldList[key].viceUmpireIcon
       }

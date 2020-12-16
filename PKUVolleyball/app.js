@@ -42,6 +42,7 @@ App({
     school: "",
     gender: "",
     publicKey: "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCDQ6JeGf2mKaMyyPjY/AcJU07lHDQaKLe4+Pr5lCNUR8XhRxVQQQW9BX23lgbxqWYSGlosANZEETqPWcnZx4a76ARGhZ/agirsbGaElFPiK9ejHxj5RPhDWia3Y2nmv8h2f7UdGfZtIOs+St/fNwPfhehWPCjqlP9TI3VZMRosBwIDAQAB-----END PUBLIC KEY-----",
-    privateKey: ""
+    privateKey: "",
+    matchInfo: {}
   }
 })

@@ -61,7 +61,7 @@ Page({
   addUser: function(e){
     var self = this
     this.encryptPassword()
-    console.log(this.data.password)
+    console.log(this.data.encryptedPassword)
     this.decryptPassword()
     console.log(this.data.password)
     wx.request({
