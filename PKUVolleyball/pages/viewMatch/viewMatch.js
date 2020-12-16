@@ -146,91 +146,103 @@ Page({
     console.log("Umpire Request")
   },
 
+  // 请求pastData往后的值，并更新pastMatchList
+  BackRequest: function(day){
+    let self = this;
+    var queryDate = this.getDateString(this.GetNewDate(this.data.pastDate, -1))
+    console.log("Query:", queryDate)
+    // 先获得过去的比赛
+    wx.request({
+      url: app.globalData.rootUrl + '/viewMatches',
+      data: {
+        "beginsAt": JSON.stringify(queryDate),
+        "matchDaysRequesting": JSON.stringify(day),
+        "direction": JSON.stringify("U")
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success:function(res){
+          console.log('request returns: ', res.data)
+          let oldList = res.data.matches
+          let newList = self.Transform(oldList)
+          var length = res.data.matches.length;
+          if(length > 0){
+            self.setData({
+              pastMatchList: newList.concat(self.data.pastMatchList),
+              pastDate: self.timeParse(res.data.matches[length-1].time)
+            })
+            // console.log(self.data.pastDate)
+          }
+          else{
+            util.showMassage("没有更早的比赛了！")
+          }
+          
+          // console.log(self.data.matchList)
+      },
+      fail: function(res) {
+          console.log('请求比赛失败！' + res.errMsg)
+      }
+    })
+  },
+
+  ForwardRequest: function(day){
+    let self = this;
+    var queryDate = this.getDateString(this.GetNewDate(this.data.futureDate, 1))
+    console.log(queryDate)
+    wx.request({
+      url: app.globalData.rootUrl + '/viewMatches',
+      data: {
+        "beginsAt": JSON.stringify(queryDate),
+        "matchDaysRequesting": JSON.stringify(day),
+        "direction": JSON.stringify("D")
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success:function(res){
+          console.log('request returns: ', res.data)
+          let oldList = res.data.matches
+          let newList = self.Transform(oldList)
+          var length = res.data.matches.length;
+          if(length > 0){
+            self.setData({
+              futureMatchList: self.data.futureMatchList.concat(newList),
+              futureDate: self.timeParse(res.data.matches[length-1].time)
+            })
+            //console.log(self.data.futrueDate)
+          }
+          else{
+            util.showMassage("没有更新的比赛了！");
+          }
+      },
+      fail: function(res) {
+          console.log('上拉失败！' + res.errMsg)
+      }
+    })
+  },
+
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     console.log(util.formatTime(new Date()))
+    var curDate = util.formatDate(new Date())
     this.setData({
-      Date: util.formatDate(new Date())
+      pastDate: curDate,
+      futureDate: curDate
     })
-    console.log(this.data.Date)
-    console.log(this.getDateString(this.GetNewDate(this.data.Date, -1)))
-    console.log(this.getDateString(this.data.Date))
-
-    let self = this;
-    // 获得一天前的日期
-    var queryDate = this.getDateString(this.GetNewDate(this.data.Date, +1))
-    console.log(queryDate)
-    
-    // 先获得过去的比赛
-    wx.request({
-      url: app.globalData.rootUrl + '/viewMatches',
-      data: {
-        "beginsAt": queryDate
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'chartset': 'utf-8',
-        'Cookie': 'session=' + util.getStorage("session")
-      },
-      
-      success:function(res){
-          console.log('request returns: ', res.data)
-          let oldList = res.data.matches
-          let newList = self.Transform(oldList)
-          var length = res.data.matches.length;
-          if(length > 0){
-            self.setData({
-              pastMatchList: newList,
-              pastDate: self.timeParse(res.data.matches[length-1].time)
-            })
-            console.log(self.data.pastDate)
-          }
-          
-          console.log(self.data.matchList)
-      },
-      fail: function(res) {
-          console.log('请求比赛失败！' + res.errMsg)
-      }
-    })
-
-    // 获得四天之后往前的比赛
-    queryDate = this.getDateString(this.GetNewDate(this.data.Date, + 7))
-
-     // 再获得之后的比赛
-     wx.request({
-      url: app.globalData.rootUrl + '/viewMatches',
-      data: {
-        "beginsAt": queryDate
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'chartset': 'utf-8',
-        'Cookie': 'session=' + util.getStorage("session")
-      },
-      
-      success:function(res){
-          console.log('request returns: ', res.data)
-          let oldList = res.data.matches
-          let newList = self.Transform(oldList)
-          var length = res.data.matches.length;
-          if(length > 0){
-            self.setData({
-              futureMatchList: newList,
-              futureDate: self.timeParse(res.data.matches[length-1].time)
-            })
-            console.log(self.data.pastDate)
-          }
-          
-          console.log(self.data.matchList)
-      },
-      fail: function(res) {
-          console.log('请求比赛失败！' + res.errMsg)
-      }
-    })
+    this.BackRequest(1)
+    this.ForwardRequest(1)
   },
 
   /**
@@ -290,59 +302,25 @@ Page({
   },
 
   upperHander: function(){
-    let self = this;
-    // 获得最早时间更一天前的日期
-    var queryDate = this.getDateString(this.GetNewDate(this.data.pastDate, -1))
-    console.log(queryDate)
-    
-    // 先获得过去的比赛
-    wx.request({
-      url: app.globalData.rootUrl + '/viewMatches',
-      data: {
-        "beginsAt": queryDate
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'chartset': 'utf-8',
-        'Cookie': 'session=' + util.getStorage("session")
-      },
-      
-      success:function(res){
-          console.log('request returns: ', res.data)
-          if(res.data.matches.length == 0){
-            util.showMassage("没有更多了！")
-            return
-          }
-          let oldList = res.data.matches
-          let newList = self.Transform(oldList)
-          var length = res.data.matches.length;
-          if(length > 0){
-            self.setData({
-              pastMatchList: newList.concat(self.data.pastMatchList),
-              pastDate: self.timeParse(res.data.matches[length-1].time)
-            })
-            console.log(self.data.pastDate)
-          }
-      },
-      fail: function(res) {
-          console.log('下拉失败！' + res.errMsg)
-      }
-    })
+    this.BackRequest(2)
+  },
+
+  bottomHander: function(){
+    this.ForwardRequest(2)
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.upperHander()
+     this.upperHander()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.bottomHander()
   },
 
   /**
