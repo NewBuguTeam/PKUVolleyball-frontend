@@ -1,0 +1,1 @@
+<button bindtap="addMatch">添加比赛</button>
