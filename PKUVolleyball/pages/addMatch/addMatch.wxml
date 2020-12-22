@@ -1,0 +1,35 @@
+<view class="container">
+  <picker class="groupPicker" mode="multiSelector" bindchange="bindMultiPickerChange" value="{{multiIndex}}" range="{{pickerList}}">
+    {{gender}} {{group}}组
+  </picker>
+  <view class="TeamsArea">
+    <view class="TeamArea">
+      <picker class="teamPicker" bindchange="bindTeamAPickerChange" value="{{index}}" range="{{groupLists[genderName[gender]].groupList[groupName[group]].teamList}}">
+      {{teamA}}
+      </picker>
+      <view class="TeamCard" style="background-color:#467fd7">
+          0
+      </view>
+    </view>
+
+    <view class="TeamArea">
+      <picker class="teamPicker" bindchange="bindTeamBPickerChange" value="{{index}}" range="{{groupLists[genderName[gender]].groupList[groupName[group]].teamList}}">
+      {{teamB}}
+      </picker>
+      <view class="TeamCard" style="background-color:#F93324">
+          0
+      </view>
+    </view>
+  </view>
+
+  <picker class="datePicker" mode="date" bindchange="bindDatePickerChange">
+    {{date}}
+  </picker>
+
+  <picker class="groupPicker" mode="time" bindchange="bindTimePickerChange">
+    {{time}}
+  </picker>
+
+  <input class="groupPicker" placeholder="Location:" bindinput="bindInputLocation"></input>
+  <button class="submitButton" bindtap="submitAddMatch">确认添加</button>
+</view>
