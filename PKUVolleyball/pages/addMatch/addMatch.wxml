@@ -4,7 +4,7 @@
   </picker>
   <view class="TeamsArea">
     <view class="TeamArea">
-      <picker class="teamPicker" bindchange="bindTeamAPickerChange" value="{{index}}" range="{{groupLists[genderName[gender]].groupList[groupName[group]].teamList}}">
+      <picker class="teamPicker" bindchange="bindTeamAPickerChange" value="{{index}}" range="{{groupLists[genderIndex[gender]].groupList[groupIndex[group]].teamList}}">
       {{teamA}}
       </picker>
       <view class="TeamCard" style="background-color:#467fd7">
@@ -13,7 +13,7 @@
     </view>
 
     <view class="TeamArea">
-      <picker class="teamPicker" bindchange="bindTeamBPickerChange" value="{{index}}" range="{{groupLists[genderName[gender]].groupList[groupName[group]].teamList}}">
+      <picker class="teamPicker" bindchange="bindTeamBPickerChange" value="{{index}}" range="{{groupLists[genderIndex[gender]].groupList[groupIndex[group]].teamList}}">
       {{teamB}}
       </picker>
       <view class="TeamCard" style="background-color:#F93324">
