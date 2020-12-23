@@ -118,6 +118,7 @@ Page({
         curListItem = {date : this.getDateString(curDate), list : []}
       }
       let item = {
+        id: oldList[key].id,
         time: this.getTime(oldList[key].time),
         date: this.getDateString(curDate),
         gender: oldList[key].gender, 
@@ -144,6 +145,10 @@ Page({
 
   umpireRequest: function(e){
     console.log("Umpire Request")
+  },
+
+  viceUmpireRequest: function(e){
+    console.log("Vice Umpire Request")
   },
 
   // 请求pastData往后的值，并更新pastMatchList
