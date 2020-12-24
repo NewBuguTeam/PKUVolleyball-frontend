@@ -40,11 +40,11 @@
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
-            <image src="../../images/addButton.jpg" class="buttonImage" bindtap="umpireRequest"></image>
+            <image src="../../images/addButton.jpg" class="buttonImage" data-item="{{item}}" bindtap="umpireRequest"></image>
           </view>
         </view>
         <view wx:else>
-          <image src="{{item.umpireImageUrl}}" class="buttonImage"></image>
+          <image src="{{item.umpireImageUrl}}" class="buttonImage" data-item="{{item}}" bindtap="umpireQuit"></image>
         </view>
 
         <view wx:if="{{item.viceUmpireImageUrl==nullUrl}}">
@@ -52,11 +52,11 @@
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
-            <image src="../../images/addButton.jpg" class="buttonImage" bindtap="viceUmpireRequest"></image>
+            <image src="../../images/addButton.jpg" class="buttonImage" data-item="{{item}}" bindtap="viceUmpireRequest"></image>
           </view>
         </view>
         <view wx:else>
-          <image src="{{item.viceUmpireImageUrl}}" class="buttonImage"></image>
+          <image src="{{item.viceUmpireImageUrl}}" class="buttonImage" data-item="{{item}}" bindtap="viceUmpireQuit"></image>
         </view>
       </view>
     </view>
