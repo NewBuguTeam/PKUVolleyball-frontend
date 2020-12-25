@@ -1,5 +1,6 @@
 // pages/matchInfo/matchInfo.js
 var app = getApp()
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -15,7 +16,8 @@ Page({
     time: "",
     group: "",
     place: "",
-    scoreList:[]
+    id:0,
+    detailedPoints:[]
   },
 
   /**
@@ -24,6 +26,7 @@ Page({
   onLoad: function (options) {
     var matchInfo = app.globalData.matchInfo
     this.setData({
+      id: matchInfo.id,
       teamA: matchInfo.teamA,
       teamB: matchInfo.teamB,
       date: matchInfo.date,
@@ -32,7 +35,25 @@ Page({
       place: matchInfo.location,
       teamAPoint: matchInfo.score.split(':')[0],
       teamBPoint: matchInfo.score.split(':')[1]
-
+    })
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + 'matchInfo/' + self.data.id + '/',
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success: function(res){
+          self.setData({
+            detailedPoints: res.data.detailedPoints
+          })
+          
+      },
+      fail: function(res) {
+      }
     })
   },
 

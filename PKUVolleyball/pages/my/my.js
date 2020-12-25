@@ -119,7 +119,7 @@ Page({
               school: res.data.school
             })
           app.globalData.school = res.data.school
-          
+          app.globalData.iconUrl = "../../images/icon1.jpg";
       },
       fail: function(res) {
           console.log('登陆失败！' + res.errMsg)
@@ -148,6 +148,7 @@ Page({
         })
         util.removeStorage("session")
         app.globalData.identity = "visitor";
+        app.globalData.iconUrl = "../../images/guest.png";
         console.log(app.globalData.identity);
       },
       fail: function(res){

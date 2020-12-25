@@ -118,6 +118,7 @@ Page({
         curListItem = {date : this.getDateString(curDate), list : []}
       }
       let item = {
+        id: oldList[key].id,
         time: this.getTime(oldList[key].time),
         date: this.getDateString(curDate),
         gender: oldList[key].gender, 
@@ -144,12 +145,116 @@ Page({
 
   umpireRequest: function(e){
     console.log("Umpire Request")
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + 'umpire/umpireRequest',
+      data: {
+        "id": JSON.stringify(e.currentTarget.dataset.item.id),
+        "identity": JSON.stringify(1),
+        "type": JSON.stringify(0)
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success:function(res){
+          console.log('request returns: ', res.data)
+          self.RefreshFuture()
+      },
+      fail: function(res) {
+          console.log('请求执裁失败！' + res.errMsg)
+      }
+    })
+  },
+
+  viceUmpireRequest: function(e){
+    console.log("Vice Umpire Request", e.currentTarget.dataset.item.id)
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + 'umpire/umpireRequest',
+      data: {
+        "id": JSON.stringify(e.currentTarget.dataset.item.id),
+        "identity": JSON.stringify(2),
+        "type": JSON.stringify(0)
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success:function(res){
+          console.log('request returns: ', res.data)
+          self.RefreshFuture()
+      },
+      fail: function(res) {
+          console.log('请求执裁失败！' + res.errMsg)
+      }
+    })
+  },
+
+  umpireQuit: function(e){
+    console.log("Umpire Quit")
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + 'umpire/umpireRequest',
+      data: {
+        "id": JSON.stringify(e.currentTarget.dataset.item.id),
+        "identity": JSON.stringify(1),
+        "type": JSON.stringify(-1)
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success:function(res){
+          console.log('request returns: ', res.data)
+          self.RefreshFuture()
+      },
+      fail: function(res) {
+          console.log('退出执裁失败！' + res.errMsg)
+      }
+    })
+  },
+
+  viceUmpireQuit: function(e){
+    console.log("Vice Umpire Quit")
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + 'umpire/umpireRequest',
+      data: {
+        "id": JSON.stringify(e.currentTarget.dataset.item.id),
+        "identity": JSON.stringify(2),
+        "type": JSON.stringify(-1)
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success:function(res){
+          console.log('request returns: ', res.data)
+          self.RefreshFuture()
+      },
+      fail: function(res) {
+          console.log('请求执裁失败！' + res.errMsg)
+      }
+    })
   },
 
   // 请求pastData往后的值，并更新pastMatchList
   BackRequest: function(day){
     let self = this;
-    var queryDate = this.getDateString(this.GetNewDate(this.data.pastDate, -1))
+    var queryDate = this.getDateString(this.GetNewDate(this.data.pastDate, 0))
     console.log("Query:", queryDate)
     // 先获得过去的比赛
     wx.request({
@@ -230,6 +335,17 @@ Page({
     })
   },
 
+  RefreshFuture: function(){
+    var curDate = util.formatDate(new Date())
+    var deltaDate = this.data.futureMatchList.length
+    this.setData({
+      futureDate: curDate,
+      futureMatchList: []
+    })
+    console.log("deltaDate:", deltaDate)
+    this.ForwardRequest(deltaDate)
+    console.log("futrueMatchList:", this.data.futureMatchList)
+  },
 
   /**
    * 生命周期函数--监听页面加载
