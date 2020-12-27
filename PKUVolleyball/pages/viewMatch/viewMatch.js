@@ -279,7 +279,7 @@ Page({
           if(length > 0){
             self.setData({
               pastMatchList: newList.concat(self.data.pastMatchList),
-              pastDate: self.timeParse(res.data.matches[length-1].time)
+              pastDate: self.timeParse(res.data.matches[0].time)
             })
             // console.log(self.data.pastDate)
           }
@@ -297,7 +297,7 @@ Page({
 
   ForwardRequest: function(day){
     let self = this;
-    var queryDate = this.getDateString(this.GetNewDate(this.data.futureDate, 1))
+    var queryDate = this.getDateString(this.GetNewDate(this.data.futureDate, 0))
     console.log(queryDate)
     wx.request({
       url: app.globalData.rootUrl + '/viewMatches',
