@@ -297,7 +297,7 @@ Page({
 
   ForwardRequest: function(day){
     let self = this;
-    var queryDate = this.getDateString(this.GetNewDate(this.data.futureDate, 1))
+    var queryDate = this.getDateString(this.GetNewDate(this.data.futureDate, 0))
     console.log(queryDate)
     wx.request({
       url: app.globalData.rootUrl + '/viewMatches',
