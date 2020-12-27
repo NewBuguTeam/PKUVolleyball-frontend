@@ -169,6 +169,51 @@ Page({
   onLoad: function (options) {
     app.globalData.privateKey = Key.privateKey
     // console.log(privateKey)
+
+    var self = this;
+    wx.request({
+      url: app.globalData.rootUrl + '/login',
+      data: {
+          username: JSON.stringify(self.data.username),
+          password: JSON.stringify(self.data.password),
+      },
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success: function(res){
+          console.log('username:', self.data.username)
+          console.log("password：", self.data.password)
+          console.log('request returns: ', res.data)
+          if(res.data.success == false){
+            return
+          }
+          if(res.data.isAdmin == false){
+            self.setData({
+              identity: "umpire"
+            })
+            app.globalData.identity = "umpire"
+          } 
+          else{
+            self.setData({
+              identity: "admin"
+            })
+            app.globalData.identity = "admin"
+          } 
+          self.setData({
+              imageSrc: "../../images/icon1.jpg",
+              school: res.data.school
+            })
+          app.globalData.school = res.data.school
+          app.globalData.iconUrl = "../../images/icon1.jpg";
+      },
+      fail: function(res) {
+          console.log('登陆失败！' + res.errMsg)
+      }
+    })
   },
 
   /**
