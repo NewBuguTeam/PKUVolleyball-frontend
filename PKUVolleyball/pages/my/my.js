@@ -205,7 +205,8 @@ Page({
           } 
           self.setData({
               imageSrc: "../../images/icon1.jpg",
-              school: res.data.school
+              school: res.data.school,
+              username: res.data.username
             })
           app.globalData.school = res.data.school
           app.globalData.iconUrl = "../../images/icon1.jpg";

@@ -81,36 +81,48 @@ Page({
 
   submitAddMatch: function(e){
     var self = this
-    wx.request({
-      url: app.globalData.rootUrl + 'admin/addMatch',
-      data: {
-          gender: JSON.stringify(self.data.genderName[self.data.gender]),
-          for_group_X_or_knockout_X: JSON.stringify(self.data.group),
-          time: JSON.stringify(self.data.date + " " + self.data.time + ":00"),
-          teamA: JSON.stringify(self.data.teamA),
-          teamB: JSON.stringify(self.data.teamB),
-          location: JSON.stringify(self.data.location)
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded',
-        'chartset': 'utf-8',
-        'Cookie': 'session=' + util.getStorage("session")
-      },
-      
-      success: function(res){
-          console.log('request returns: ', res.data)
-          if(res.data == "not login yet"){
-            util.showMassage("还未登录!")  
-          }
-          else{
-            util.showMassage("创建成功!")
-          }
-          
-      },
-      fail: function(res) {
+    wx.showModal({
+      title: '提示',
+      content: '是否确认添加？',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.request({
+            url: app.globalData.rootUrl + 'admin/addMatch',
+            data: {
+                gender: JSON.stringify(self.data.genderName[self.data.gender]),
+                for_group_X_or_knockout_X: JSON.stringify(self.data.group),
+                time: JSON.stringify(self.data.date + " " + self.data.time + ":00"),
+                teamA: JSON.stringify(self.data.teamA),
+                teamB: JSON.stringify(self.data.teamB),
+                location: JSON.stringify(self.data.location)
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded',
+              'chartset': 'utf-8',
+              'Cookie': 'session=' + util.getStorage("session")
+            },
+            
+            success: function(res){
+                console.log('request returns: ', res.data)
+                if(res.data == "no permission"){
+                  util.showMassage("您没有权限!")  
+                }
+                else{
+                  util.showMassage("创建成功!")
+                }
+                
+            },
+            fail: function(res) {
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
+    
   },
 
   /**

@@ -58,6 +58,51 @@ Page({
     this.data.password = decStr
   },
 
+  submitAddUser: function(e){
+    var self = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确认添加用户？',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          self.encryptPassword()
+          console.log(self.data.encryptedPassword)
+          self.decryptPassword()
+          console.log(self.data.password)
+          wx.request({
+            url: app.globalData.rootUrl + 'admin/addUser',
+            data: {
+                newUsername: JSON.stringify(self.data.username),
+                newPassword: JSON.stringify(self.data.password),
+                newIsAdmin: JSON.stringify(self.data.isAdmin),
+                newSchool: JSON.stringify(self.data.school)
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded',
+              'chartset': 'utf-8',
+              'Cookie': 'session=' + util.getStorage("session")
+            },
+            
+            success: function(res){
+                console.log('request returns: ', res.data)
+                if(res.data == "New user successfully created")
+                  util.showMassage("创建成功！")
+                else
+                  util.showMassage("创建失败！");
+                  
+            },
+            fail: function(res) {
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+
   addUser: function(e){
     var self = this
     this.encryptPassword()
@@ -84,12 +129,6 @@ Page({
           util.showMassage("创建成功!")
       },
       fail: function(res) {
-        if(res.errMsg == "未登录" && app.globalData.identity != "visitor"){
-          util.cookieDue()
-        }
-        else{
-          console.log('登陆失败！' + res.errMsg)
-        }
       }
     })
   },
