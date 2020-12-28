@@ -5,7 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
+    nameA: "信科",
+    nameB: "医学",
+    curRound: 1,
+    curPointA: 0,
+    curPointB: 0
+  },
 
+  teamAScore:function(e){
+    this.setData({
+      curPointA: this.data.curPointA + 1
+    })
+  },
+
+  teamBScore:function(e){
+    this.setData({
+      curPointB: this.data.curPointB + 1
+    })
   },
 
   /**

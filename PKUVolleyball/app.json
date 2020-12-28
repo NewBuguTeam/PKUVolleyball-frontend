@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/confirmPoints/confirmPoints",
     "pages/my/my",
     "pages/addMatch/addMatch",
     "pages/editMatch/editMatch",
@@ -8,8 +9,8 @@
     "pages/addUser/addUser",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/matchInfo/matchInfo",
-    "pages/confirmPoints/confirmPoints"
+    "pages/matchInfo/matchInfo"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

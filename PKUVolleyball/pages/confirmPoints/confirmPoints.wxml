@@ -1,2 +1,38 @@
-<!--pages/confirmPoints/confirmPoints.wxml-->
-<text>pages/confirmPoints/confirmPoints.wxml</text>
+<view class="wholePage">
+  <view>
+    <text>第{{curRound}}局</text>
+  </view>
+  <view class="container">
+    <view class="scoreBoard">
+      <text class="teamName">
+        {{nameA}}
+      </text>
+      <view class="curPoint" bindtap="teamAScore" style="background-color:#467fd7">
+        <text class="pointText">
+        {{curPointA}}
+        </text>
+      </view>
+      <view class="actionButtons">
+        <view class="actionButton" style="background-color:#5599ff">暂停</view>
+        <view class="actionButton" style="background-color:#5599ff">换人</view>
+      </view>
+    </view>
+    <view class="scoreBoard">
+      <text class="teamName">
+        {{nameB}}
+      </text>
+      <view class="curPoint" bindtap="teamBScore" style="background-color:#f93324">
+        <text class="pointText">
+        {{curPointB}}
+        </text>
+      </view>
+      <view class="actionButtons">
+        <view class="actionButton" style="background-color:#ff8888">暂停</view>
+        <view class="actionButton" style="background-color:#ff8888">换人</view>
+      </view>
+    </view>
+  </view>
+  <button class="submitButton" type="default"> 
+    确认提交
+  </button>
+</view>

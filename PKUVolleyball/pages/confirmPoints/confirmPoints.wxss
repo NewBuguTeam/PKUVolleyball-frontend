@@ -1,1 +1,67 @@
 /* pages/confirmPoints/confirmPoints.wxss */
+
+.container{
+  padding: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.scoreBoard{
+  display: flex;
+  flex-direction: column;
+}
+
+.curPoint{
+  width: 250rpx;
+  height: 150rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  font-size: xx-large;
+  text-align: center;  
+}
+
+.pointText{
+  align-self: center;
+  color: white;
+}
+
+.actionButton{
+  margin: 10rpx;
+  width: 80rpx;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  height: 30rpx;
+  background-color: turquoise;
+  text-align: center;
+}
+
+.actionButtons{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.wholePage{
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.teamName{
+  align-self: center;
+  font-size: x-large;
+  margin: 3rpx;
+}
+
+.buttonContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+.submitButton{
+  padding: 0;
+  align-self: start;
+  margin-bottom: 10rpx;
+}
