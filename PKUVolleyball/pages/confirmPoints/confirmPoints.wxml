@@ -1,7 +1,15 @@
-<view class="wholePage">
-  <view>
-    <text>第{{curRound}}局</text>
+<view class="wholePage" wx:if="{{showTimeTicker==false}}">
+  <view class="roundList">
+    <view wx:for="{{maxRound}}" data-index="{{i}}" bindtap="chooseCurRound" wx:for-index="i" wx:key="i">
+      <view wx:if="{{i==curRound}}">
+        <view class="curRoundText">第{{i+1}}局</view>
+      </view>
+      <view wx:else>
+        <view class="otherRoundText">第{{i+1}}局</view>
+      </view>
+    </view>
   </view>
+  
   <view class="container">
     <view class="scoreBoard">
       <text class="teamName">
@@ -13,7 +21,7 @@
         </text>
       </view>
       <view class="actionButtons">
-        <view class="actionButton" style="background-color:#5599ff">暂停</view>
+        <view class="actionButton" style="background-color:#5599ff" bindtap="pauseButton" data-item="A">暂停</view>
         <view class="actionButton" style="background-color:#5599ff">换人</view>
       </view>
     </view>
@@ -27,12 +35,22 @@
         </text>
       </view>
       <view class="actionButtons">
-        <view class="actionButton" style="background-color:#ff8888">暂停</view>
+        <view class="actionButton" style="background-color:#ff8888" bindtap="pauseButton" data-item="A">暂停</view>
         <view class="actionButton" style="background-color:#ff8888">换人</view>
       </view>
     </view>
   </view>
-  <button class="submitButton" type="default"> 
+  <button class="submitButton" bindtap="submitScore" type="default"> 
     确认提交
   </button>
+</view>
+<view class="TimeTickerPage" wx:else>
+  <view class="timeTicker">
+    <view class="timeText">{{minute}}:</view>
+    <view class="timeText">{{second}}:</view>
+    <view class="timeText">{{microSecond}}</view>
+  </view>
+  <view>
+    <button bindtap="exitTimeTick" type="warn">退出计时</button>
+  </view>
 </view>

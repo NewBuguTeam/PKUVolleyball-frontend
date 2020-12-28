@@ -8,6 +8,11 @@
   align-items: center;
 }
 
+.roundList{
+  display: flex;
+  flex-direction: row;
+}
+
 .scoreBoard{
   display: flex;
   flex-direction: column;
@@ -64,4 +69,41 @@
   padding: 0;
   align-self: start;
   margin-bottom: 10rpx;
+}
+
+.curRoundText{
+  background-color: lightgreen;
+  margin-left: 6rpx;
+  margin-right: 6rpx;
+  font-size: large;
+  border-radius: 5%;
+}
+
+.otherRoundText{
+  background-color: white;
+  margin-left: 4rpx;
+  margin-right: 4rpx;
+  font-size: medium;
+  border-radius: 5%;
+}
+
+.timeTickerPage{
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+}
+
+.timeTicker{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.timeText{
+  font-size: 8em;
+  margin-top: 90rpx;
 }
