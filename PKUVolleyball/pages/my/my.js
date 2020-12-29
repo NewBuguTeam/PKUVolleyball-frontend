@@ -117,6 +117,7 @@ Page({
         }
         console.log(highLight)
         const calendar = self.selectComponent('#calendar').calendar
+        calendar.cancelSelectedDates()
         calendar.setSelectedDates(highLight)
       },
       fail: function(res) {
