@@ -24,13 +24,6 @@ Page({
     startTime:""
   },
 
-  ruleAction:function(){
-    var that = this;
-    that.setData({
-      ruleDesImageHidden: false,
-    })
-  },
-
   formatString: function(value){
     if(Number(value) < 10)
       return "0" + value
@@ -77,14 +70,28 @@ Page({
       [duration]: deltaTime,
       [startTime]: this.data.startTime
     })
+    util.removeStorage("allPoints")
     util.putStorage("allPoints", this.data.allPoints, storageTime)
+    util.removeStorage("curRound")
+    util.putStorage("curRound", this.data.curRound, storageTime)
     console.log(this.data.allPoints)
   },
 
   loadPoint:function(){
     this.setData({
+      curRound: util.getStorage("curRound"),
       allPoints: util.getStorage("allPoints")
     })
+    if(this.data.curRound == undefined){
+      this.setData({
+        curRound: 0
+      })
+    }
+    if(this.data.allPoints == undefined){
+      this.setData({
+        allPoints: []
+      })
+    }
     let curRound = this.data.curRound
     if(this.data.allPoints[curRound] == undefined){
       let curTime = util.formatTime(new Date())
@@ -110,6 +117,7 @@ Page({
       curPointA: this.data.curPointA + 1,
       curProcedure: this.data.curProcedure + 'A'
     })
+    this.recordPoints()
     console.log(this.data.curProcedure)
   },
 
@@ -118,6 +126,7 @@ Page({
       curPointB: this.data.curPointB + 1,
       curProcedure: this.data.curProcedure + 'B'
     })
+    this.recordPoints()
     console.log(this.data.curProcedure)
   },
 
@@ -127,6 +136,8 @@ Page({
     this.setData({
       curRound: e.currentTarget.dataset.index
     })
+    util.removeStorage("curRound")
+    util.putStorage("curRound", this.data.curRound, storageTime)
     this.loadPoint()
   },
 
@@ -188,7 +199,10 @@ Page({
     wx.showModal({
       title: '提示',
       content: '是否确认退出？',
-      success (res){
+      success: function(res){
+        if(res.cancel){
+          return
+        }
         clearInterval(self.data.timer);
         util.showMassage("计时结束！")
         self.setData({
@@ -237,6 +251,7 @@ Page({
         curProcedure: this.data.curProcedure + 'D'
       })
     }
+    this.recordPoints()
     this.startTimeTicker(30)
   },
 
@@ -245,19 +260,19 @@ Page({
     wx.showModal({
       title: '提示',
       content: '是否确认提交？',
-      success (res){
+      success: function(res){
+        if(res.cancel){
+          return
+        }
         self.recordPoints()
         util.showMassage("提交成功！")
         self.startTimeTicker(180)
-        let curTime = util.formatTime(new Date())
         self.setData({
-          curRound: self.data.curRound + 1,
-          curPointA: 0,
-          curPointB: 0,
-          curProcedure: "",
-          startTime:curTime
+          curRound: self.data.curRound + 1
         })
-        console.log(self.data.startTime)
+        util.removeStorage("curRound")
+        util.putStorage("curRound", self.data.curRound, storageTime)
+        self.loadPoint()
       },
       fail:function(res){
 
@@ -269,6 +284,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //util.removeStorage("curRound")
+    //util.removeStorage("allPoints")
+    this.loadPoint()
     let curTime = util.formatTime(new Date())
     this.setData({
       startTime: curTime
