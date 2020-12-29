@@ -30,7 +30,9 @@ Page({
     unKnownWinner: "unKnown",
     finalWinner: "unKnown",
     winners:[],
-    winPoints:[25, 25, 25, 25, 15]
+    winPoints:[25, 25, 25, 25, 15],
+    finalPoint: "0:0",
+    id:undefined
   },
 
   parseProcedure: function(){
@@ -67,8 +69,10 @@ Page({
           else if(pointB - pointA >= 2 && pointB >= this.data.winPoints[i])
             cntB++
         }
-        
       }
+      this.setData({
+        finalPoint: cntA + ":" + cntB
+      })
       if(cntA >= 3){
         this.setData({
           finalWinner: "A"
@@ -421,12 +425,59 @@ Page({
     })
   },
 
+  submitFinal: function(e){
+    var self = this
+    wx.showModal({
+      title: '提示',
+      content: '是否确认上传？',
+      success: function(res){
+        if(res.cancel){
+          return
+        }
+        console.log("allPoints:", self.data.allPoints)
+        wx.request({
+          url: app.globalData.rootUrl + 'umpire/confirmPoints',
+          data:{
+            id: JSON.stringify(self.data.id),
+            point: JSON.stringify(self.data.finalPoint),
+            detailedPoints: JSON.stringify(self.data.allPoints)
+          },
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'chartset': 'utf-8',
+            'Cookie': 'session=' + util.getStorage("session")
+          },
+          
+          success: function(res){
+            console.log(res.data)
+            util.removeStorage("curRound")
+            util.removeStorage("allPoints")
+            util.showMassage("上传成功！")
+            wx.navigateBack()
+          },
+          fail: function(res) {
+              console.log('登陆失败！' + res.errMsg)
+          }
+        })
+      },
+      fail:function(res){
+
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     //util.removeStorage("curRound")
     //util.removeStorage("allPoints")
+    this.setData({
+      nameA: app.globalData.matchNow.teamA,
+      nameB: app.globalData.matchNow.teamB,
+      id: app.globalData.matchNow.id
+    })
     this.loadPoint()
     let curTime = util.formatTime(new Date())
     this.setData({

@@ -60,7 +60,7 @@
     <button class="submitButton" bindtap="submitScore" type="default" wx:if="{{finalWinner==unKnownWinner}}"> 
       本局结束，点击进入下局
     </button>
-    <button class="submitButton" bindtap="submitScore" type="default" wx:else> 
+    <button class="submitButton" bindtap="submitFinal" type="default" wx:else> 
       本场结束，点击上传数据
     </button>
   </view>

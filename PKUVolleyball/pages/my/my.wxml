@@ -21,14 +21,22 @@
   <view  wx:if="{{identity==umpireIdentity}}">
     <view class="topBar">
       <text class="afterLogText">
-        即将执裁{{gameList.length}}场
+        共执裁{{gameList.length}}场
       </text>
     </view>
-    <view class="GameList" wx:for="{{gameList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
-    {{item.date}} {{item.time}} {{item.place}} {{item.teamA}} vs {{item.teamB}}
-    </view>
     <calendar
-    config="{{calendarConfig}}"> </calendar>
+      id="calendar"
+      config="{{calendarConfig}}"
+      bind:takeoverTap="takeoverTap"
+      bind:afterTapDate="afterTapDate"
+      bind:afterCalendarRender="afterCalendarRender"
+      bind:onSwipe="onSwipe"
+      bind:whenChangeMonth="whenChangeMonth"
+    />
+    <view class="afterLogText">今天的比赛：</view>
+    <view class="GameList" wx:for="{{todayList}}" wx:key="key" wx:for-inde="key" id="{{key}}" data-item="{{item}}" bindtap="startScore">
+    {{genderName[item.gender]}} {{item.teamA}} vs {{item.teamB}} {{item.matchTime}} {{item.location}}
+    </view>
   </view>
   <view wx:else>
     <button bindtap="addUser" class = "addButton">
