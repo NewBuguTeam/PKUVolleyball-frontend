@@ -25,7 +25,12 @@ Page({
     pauseTimeA: 0,
     pauseTimeB: 0,
     exchangeTimeA: 0,
-    exchangeTimeB: 0
+    exchangeTimeB: 0,
+    curWinner: "unKnown",
+    unKnownWinner: "unKnown",
+    finalWinner: "unKnown",
+    winners:[],
+    winPoints:[25, 25, 25, 25, 15]
   },
 
   parseProcedure: function(){
@@ -44,6 +49,74 @@ Page({
       exchangeTimeA: ea,
       exchangeTimeB: eb
     })
+  },
+
+  judgeFinalWinner: function(){
+    let cntA = 0, cntB = 0
+    for(var i = 0; i < 5; i++){
+      if(this.data.winners[i] == 'A')
+        cntA++
+      else if(this.data.winners[i] == 'B')
+        cntB++
+      else{
+        if(this.data.allPoints[i] != undefined){
+          let pointA = this.data.allPoints[i].point.split(':')[0]
+          let pointB = this.data.allPoints[i].point.split(':')[1]
+          if(pointA - pointB >= 2 && pointA >= this.data.winPoints[i])
+            cntA++
+          else if(pointB - pointA >= 2 && pointB >= this.data.winPoints[i])
+            cntB++
+        }
+        
+      }
+      if(cntA >= 3){
+        this.setData({
+          finalWinner: "A"
+        })
+        return
+      }
+      else if(cntB >= 3){
+        this.setData({
+          finalWinner: "B"
+        })
+        return
+      }
+    }
+  },
+
+  judgeWinner: function(){
+    let pointA = this.data.curPointA
+    let pointB = this.data.curPointB
+    let winPoint = this.data.winPoints[this.data.curRound]
+    if(pointA >= winPoint && pointA - pointB >= 2){
+      this.setData({
+        curWinner : "A"
+      })
+    }
+    else if(pointB >= winPoint && pointB - pointA >= 2){
+      this.setData({
+        curWinner : "B"
+      })
+    }
+    else{
+      this.setData({
+        curWinner : "unKnown"
+      })
+    }
+    if(this.data.curWinner != this.data.unKnownWinner){
+      let massage = "第" + (this.data.curRound + 1) + "局结束，"
+      if(this.data.curWinner == "A")
+        massage += this.data.nameA + "胜利"
+      else if(this.data.curWinner == "B")
+        massage += this.data.nameB + "胜利"
+      util.showMassage(massage)
+      let winner = 'winners['+this.data.curRound+']'
+      this.setData({
+        [winner] : this.data.curWinner
+      })
+      console.log(this.data.winners)
+      this.judgeFinalWinner()
+    }
   },
 
   formatString: function(value){
@@ -121,9 +194,10 @@ Page({
         curPointA: 0,
         curPointB: 0,
         curProcedure: "",
-        startTime:curTime
+        startTime:curTime,
       })
       this.parseProcedure()
+      this.judgeWinner()
       return
     }
     let point = this.data.allPoints[curRound].point.split(':')
@@ -134,23 +208,32 @@ Page({
       startTime: this.data.allPoints[curRound].startTime
     })
     this.parseProcedure()
+    this.judgeWinner()
   },
 
   teamAScore:function(e){
+    if(this.data.curWinner != this.data.unKnownWinner){
+      return
+    }
     this.setData({
       curPointA: this.data.curPointA + 1,
       curProcedure: this.data.curProcedure + 'A'
     })
     this.recordPoints()
+    this.judgeWinner()
     console.log(this.data.curProcedure)
   },
 
   teamBScore:function(e){
+    if(this.data.curWinner != this.data.unKnownWinner){
+      return
+    }
     this.setData({
       curPointB: this.data.curPointB + 1,
       curProcedure: this.data.curProcedure + 'B'
     })
     this.recordPoints()
+    this.judgeWinner()
     console.log(this.data.curProcedure)
   },
 

@@ -80,6 +80,7 @@
   padding: 0;
   align-self: start;
   margin-bottom: 10rpx;
+  font-size: medium;
 }
 
 .curRoundText{

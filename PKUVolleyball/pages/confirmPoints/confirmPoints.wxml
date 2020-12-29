@@ -56,9 +56,15 @@
       </view>
     </view>
   </view>
-  <button class="submitButton" bindtap="submitScore" type="default"> 
-    确认提交
-  </button>
+  <view wx:if="{{curWinner!=unKnownWinner}}">
+    <button class="submitButton" bindtap="submitScore" type="default" wx:if="{{finalWinner==unKnownWinner}}"> 
+      本局结束，点击进入下局
+    </button>
+    <button class="submitButton" bindtap="submitScore" type="default" wx:else> 
+      本场结束，点击上传数据
+    </button>
+  </view>
+  
 </view>
 <view class="TimeTickerPage" wx:else>
   <view class="timeTicker">
