@@ -295,7 +295,7 @@ Page({
     })
   },
 
-  ForwardRequest: function(day){
+  ForwardRequest: function(day,showMassage=true){
     let self = this;
     var queryDate = this.getDateString(this.GetNewDate(this.data.futureDate, 0))
     console.log(queryDate)
@@ -326,7 +326,8 @@ Page({
             //console.log(self.data.futrueDate)
           }
           else{
-            util.showMassage("没有更新的比赛了！");
+            if(showMassage)
+              util.showMassage("没有更新的比赛了！");
           }
       },
       fail: function(res) {
@@ -343,7 +344,7 @@ Page({
       futureMatchList: []
     })
     console.log("deltaDate:", deltaDate)
-    this.ForwardRequest(deltaDate)
+    this.ForwardRequest(deltaDate, false)
     console.log("futrueMatchList:", this.data.futureMatchList)
   },
 
