@@ -1,0 +1,78 @@
+<view class="wholePage" wx:if="{{showTimeTicker==false}}">
+  <view class="topBar">
+    <view class="roundList">
+      <view wx:for="{{maxRound}}" data-index="{{i}}" bindtap="chooseCurRound" wx:for-index="i" wx:key="i">
+        <view wx:if="{{i==curRound}}">
+          <view class="curRoundText">第{{i+1}}局</view>
+        </view>
+        <view wx:else>
+          <view class="otherRoundText">第{{i+1}}局</view>
+        </view>
+      </view>
+    </view>
+    <view class="iconList">
+      <view wx:for="{{2-pauseTimeA}}" wx:key="i">
+        <image src="../../images/pauseA.png"></image>
+      </view>
+      <view wx:for="{{2-pauseTimeB}}" wx:key="i">
+        <image src="../../images/pauseB.png"></image>
+      </view>
+      <view wx:for="{{6-exchangeTimeA}}" wx:key="i">
+        <image src="../../images/exchangeA.png"></image>
+      </view>
+      <view wx:for="{{6-exchangeTimeB}}" wx:key="i">
+        <image src="../../images/exchangeB.png"></image>
+      </view>
+    </view>
+  </view>
+  
+  <view class="container">
+    <view class="scoreBoard">
+      <text class="teamName">
+        {{nameA}}
+      </text>
+      <view class="curPoint" bindtap="teamAScore" style="background-color:#467fd7">
+        <text class="pointText">
+        {{curPointA}}
+        </text>
+      </view>
+      <view class="actionButtons">
+        <view class="actionButton" style="background-color:#5599ff" bindtap="pauseButton" data-item="A">暂停</view>
+        <view class="actionButton" style="background-color:#5599ff" bindtap="exchangeButton" data-item="A">换人</view>
+      </view>
+    </view>
+    <view class="scoreBoard">
+      <text class="teamName">
+        {{nameB}}
+      </text>
+      <view class="curPoint" bindtap="teamBScore" style="background-color:#f93324">
+        <text class="pointText">
+        {{curPointB}}
+        </text>
+      </view>
+      <view class="actionButtons">
+        <view class="actionButton" style="background-color:#ff8888" bindtap="pauseButton" data-item="B">暂停</view>
+        <view class="actionButton" style="background-color:#ff8888" bindtap="exchangeButton" data-item="B">换人</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{curWinner!=unKnownWinner}}">
+    <button class="submitButton" bindtap="submitScore" type="default" wx:if="{{finalWinner==unKnownWinner}}"> 
+      本局结束，点击进入下局
+    </button>
+    <button class="submitButton" bindtap="submitFinal" type="default" wx:else> 
+      本场结束，点击上传数据
+    </button>
+  </view>
+  
+</view>
+<view class="TimeTickerPage" wx:else>
+  <view class="timeTicker">
+    <view class="timeText">{{minute}}:</view>
+    <view class="timeText">{{second}}:</view>
+    <view class="timeText">{{microSecond}}</view>
+  </view>
+  <view>
+    <button bindtap="exitTimeTick" type="warn">退出计时</button>
+  </view>
+</view>

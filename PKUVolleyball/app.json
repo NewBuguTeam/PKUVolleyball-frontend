@@ -8,7 +8,8 @@
     "pages/addUser/addUser",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/matchInfo/matchInfo"
+    "pages/matchInfo/matchInfo",
+    "pages/confirmPoints/confirmPoints"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -339,7 +339,7 @@ Page({
     var curDate = util.formatDate(new Date())
     var deltaDate = this.data.futureMatchList.length
     this.setData({
-      futureDate: curDate,
+      futureDate: this.GetNewDate(curDate, -1),
       futureMatchList: []
     })
     console.log("deltaDate:", deltaDate)
@@ -355,7 +355,7 @@ Page({
     var curDate = util.formatDate(new Date())
     this.setData({
       pastDate: curDate,
-      futureDate: curDate
+      futureDate: this.GetNewDate(curDate, -1)
     })
     this.BackRequest(1)
     this.ForwardRequest(1)

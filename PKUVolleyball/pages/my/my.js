@@ -4,13 +4,31 @@ var storageTime = 30 * 60
 var util = require('../../utils/util.js')
 var RSA = require('../../utils/wx_rsa.js')
 var Key = require('../../utils/Key.js')
-Page({
 
+import plugin from '../../components/v2/plugins/index'
+
+// 设置代办
+import todo from '../../components/v2/plugins/todo'
+// 禁用/启用可选状态
+import selectable from '../../components/v2/plugins/selectable'
+// 农历相关功能
+import solarLunar from '../../components/v2/plugins/solarLunar/index'
+
+// 开始安装，支持链式调用
+
+plugin
+  .use(todo)
+  .use(solarLunar)
+  .use(selectable)
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
     calendarConfig: {
+      multi: true,
+      markToday: '今',
       theme: 'default' // 日历主题，目前共两款可选择，默认 default 及 elegant，自定义主题色在参考 /theme 文件夹
     },
     identityName: {"visitor": "游客", "umpire": "裁判", "admin": "管理员"},
@@ -23,8 +41,10 @@ Page({
     password: "",
     encryptedPassword: "",
     gameList: [],
+    todayList: [],
     school: "",
-    gender: ""
+    gender: "",
+    genderName: { "M": "联赛", "F": "女子"}
   },
 
   InputUsername: function(e){
@@ -54,6 +74,64 @@ Page({
     var encStr = RSA.b64tohex(this.data.encryptedPassword);
     var decStr = decrypt_rsa.decrypt(encStr)
     this.data.password = decStr
+  },
+
+  getMyMatches: function(e){
+    console.log("getMyMatches")
+    var self = this
+    wx.request({
+      url: app.globalData.rootUrl + 'umpire/matchesToParticipateIn',
+      method: 'GET',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'chartset': 'utf-8',
+        'Cookie': 'session=' + util.getStorage("session")
+      },
+      
+      success: function(res){
+        console.log(res.data)
+        let matchList = res.data.result
+        let size = matchList.length
+        let highLight = []
+        self.setData({
+          gameList:[],
+          todayList:[]
+        })
+        let today = util.formatDate(new Date())
+        
+        for(var i = 0; i < size; i++){
+          let date = matchList[i].date.split('-')
+          highLight[i]={year:Number(date[0]), month:Number(date[1]), date:Number(date[2])}
+          
+          for(var j = 0; j < matchList[i].matches.length; j++){
+            self.setData({
+              gameList: self.data.gameList.concat(matchList[i].matches[j])
+            })
+          }
+          if((Number(date[0]) == Number(today.year)) && (Number(date[1]) == Number(today.month)) && (Number(date[2]) == Number(today.day)))
+            for(var j = 0; j < matchList[i].matches.length; j++){
+              self.setData({
+                todayList: self.data.todayList.concat(matchList[i].matches[j])
+              })
+            }
+        }
+        console.log(highLight)
+        const calendar = self.selectComponent('#calendar').calendar
+        calendar.setSelectedDates(highLight)
+      },
+      fail: function(res) {
+          console.log('登陆失败！' + res.errMsg)
+      }
+    })
+    
+  },
+
+  startScore: function(e){
+    console.log(e.currentTarget.dataset.item)
+    app.globalData.matchNow = e.currentTarget.dataset.item
+    wx.navigateTo({
+      url: '../confirmPoints/confirmPoints',
+    })
   },
 
   SignIn: function(e){
@@ -98,13 +176,13 @@ Page({
           catch(e){
             console.log(e)
           }
-          
-
+        
           if(res.data.isAdmin == false){
             self.setData({
               identity: "umpire"
             })
             app.globalData.identity = "umpire"
+            self.getMyMatches()
           }
             
           else{
@@ -196,6 +274,7 @@ Page({
               identity: "umpire"
             })
             app.globalData.identity = "umpire"
+            self.getMyMatches()
           } 
           else{
             self.setData({
@@ -233,6 +312,9 @@ Page({
     })
     console.log(this.data.identity)
     console.log(app.globalData.identity)
+    if(this.data.identity=="umpire"){
+      this.getMyMatches()
+    }
   },
 
   /**
