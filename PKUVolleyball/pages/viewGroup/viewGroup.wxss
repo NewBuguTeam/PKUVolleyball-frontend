@@ -42,6 +42,7 @@
 }
 
 .container{
+  padding: 10rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

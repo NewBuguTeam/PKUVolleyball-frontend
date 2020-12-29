@@ -23,15 +23,15 @@
     <view class="DateView">
       <text class = "DateText">{{item.date}}</text>
     </view>
-    <view class="MatchCard" data-item="{{item}}" bindtap="ClickForMatchDetail" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+    <view class="MatchCard" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
       <view class="InfoView">
         <text class="InfoText"> {{item.time}}</text>
         <text class="InfoText"> {{genderName[item.gender]}}{{item.group}}</text>
       </view>
-      <view class="TeamCard" style="background-color:#83aae5">
+      <view class="TeamCard" data-item="{{item}}" bindtap="ClickForMatchDetail" style="background-color:#83aae5">
         <text class="TeamNameText">{{item.teamA}}</text>
       </view>
-      <view class="TeamCard" style="background-color:#fa7470">
+      <view class="TeamCard" data-item="{{item}}" bindtap="ClickForMatchDetail" style="background-color:#fa7470">
         <text class="TeamNameText">{{item.teamB}}</text>
       </view>
       <view class="buttonArea">
@@ -40,11 +40,11 @@
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
-            <image src="../../images/addButton.jpg" class="buttonImage" bindtap="umpireRequest"></image>
+            <image src="../../images/addButton.jpg" class="buttonImage" data-item="{{item}}" bindtap="umpireRequest"></image>
           </view>
         </view>
         <view wx:else>
-          <image src="{{item.umpireImageUrl}}" class="buttonImage"></image>
+          <image src="{{item.umpireImageUrl}}" class="buttonImage" data-item="{{item}}" bindtap="umpireQuit"></image>
         </view>
 
         <view wx:if="{{item.viceUmpireImageUrl==nullUrl}}">
@@ -52,11 +52,11 @@
             <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
           </view>
           <view wx:else>
-            <image src="../../images/addButton.jpg" class="buttonImage" bindtap="umpireRequest"></image>
+            <image src="../../images/addButton.jpg" class="buttonImage" data-item="{{item}}" bindtap="viceUmpireRequest"></image>
           </view>
         </view>
         <view wx:else>
-          <image src="{{item.viceUmpireImageUrl}}" class="buttonImage"></image>
+          <image src="{{item.viceUmpireImageUrl}}" class="buttonImage" data-item="{{item}}" bindtap="viceUmpireQuit"></image>
         </view>
       </view>
     </view>

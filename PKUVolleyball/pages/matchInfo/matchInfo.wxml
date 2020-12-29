@@ -19,8 +19,8 @@
     <view class="Line"></view>
   </view>
   <view class="ScoreArea">
-    <view class="ScoreBar" wx:for="{{scoreList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
-      <text class="ScoreListText">{{item}}</text>
+    <view class="ScoreBar" wx:for="{{detailedPoints}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+      <text class="ScoreListText">{{item.point}}</text>
     </view>
   </view>
 </view>

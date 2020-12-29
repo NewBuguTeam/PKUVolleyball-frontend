@@ -3,8 +3,8 @@
   <input placeholder="Password" bindinput="inputPassword"></input>
   
   <radio-group bindchange="changeRadio">
-    <radio value="true" checked="true">管理员</radio>
-    <radio value="false">裁判</radio>
+    <radio value="True" checked="true">管理员</radio>
+    <radio value="">裁判</radio>
   </radio-group>
 
   <view class = "picker">
@@ -15,5 +15,5 @@
     </picker>
   </view>
   
-  <button bindtap="addUser">创建用户</button>
+  <button bindtap="submitAddUser">创建用户</button>
 </view>

@@ -1,12 +1,15 @@
 {
   "pages": [
+    "pages/my/my",
+    "pages/addMatch/addMatch",
+    "pages/editMatch/editMatch",
     "pages/viewMatch/viewMatch",
     "pages/viewGroup/viewGroup",
-    "pages/my/my",
     "pages/addUser/addUser",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/matchInfo/matchInfo"
+    "pages/matchInfo/matchInfo",
+    "pages/confirmPoints/confirmPoints"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,7 +22,7 @@
     "selectedColor": "#328EEB",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/editMatch/editMatch",
         "text": "编辑赛程",
         "iconPath": "images/setting1.png",
         "selectedIconPath": "images/setting2.png"

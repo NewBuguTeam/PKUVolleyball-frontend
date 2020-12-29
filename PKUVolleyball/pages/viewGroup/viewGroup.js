@@ -11,7 +11,8 @@ Page({
     identity: "visitor",
     adminIdentity: "admin",
     //colors: ["#FF375F","#95C8FA","#FFD60A","#30D158"],
-    colors: ["#FF7F50",  "#FFA07A", "#FFDEAD", "#F0E68C"],
+    //colors: ["#FF7F50",  "#FFA07A", "#FFDEAD", "#F0E68C"],
+    colors: ["#A0522D",  "#CD5C5C", "#BC8F8F", "#F08080"],
     groupLists: []
   },
 
