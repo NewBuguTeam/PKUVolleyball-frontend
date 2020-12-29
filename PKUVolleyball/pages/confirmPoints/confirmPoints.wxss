@@ -1,14 +1,25 @@
 /* pages/confirmPoints/confirmPoints.wxss */
 
 .container{
-  padding: 20rpx;
+  padding: 0rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
+.topBar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .roundList{
+  display: flex;
+  flex-direction: row;
+}
+
+.iconList{
   display: flex;
   flex-direction: row;
 }
@@ -106,4 +117,10 @@
 .timeText{
   font-size: 8em;
   margin-top: 90rpx;
+}
+
+image{
+  width: 20rpx;
+  height: 20rpx;
+  margin: 5rpx;
 }

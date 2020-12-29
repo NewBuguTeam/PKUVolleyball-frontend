@@ -21,7 +21,29 @@ Page({
     second:"00",
     microSecond:"00",
     timer:null,
-    startTime:""
+    startTime:"",
+    pauseTimeA: 0,
+    pauseTimeB: 0,
+    exchangeTimeA: 0,
+    exchangeTimeB: 0
+  },
+
+  parseProcedure: function(){
+    let procedure = this.data.curProcedure
+    let pa = 0, pb = 0, ea = 0, eb = 0
+    for(var i = 0, n = procedure.length; i < n; i++){
+      if(procedure[i] == 'C') pa++
+      else if(procedure[i] == 'D') pb++
+      else if(procedure[i] == 'E') ea++
+      else if(procedure[i] == 'F') eb++
+    }
+    console.log(procedure,pa,pb,ea,eb)
+    this.setData({
+      pauseTimeA: pa,
+      pauseTimeB: pb,
+      exchangeTimeA: ea,
+      exchangeTimeB: eb
+    })
   },
 
   formatString: function(value){
@@ -101,6 +123,7 @@ Page({
         curProcedure: "",
         startTime:curTime
       })
+      this.parseProcedure()
       return
     }
     let point = this.data.allPoints[curRound].point.split(':')
@@ -110,6 +133,7 @@ Page({
       curProcedure: this.data.allPoints[curRound].procedure,
       startTime: this.data.allPoints[curRound].startTime
     })
+    this.parseProcedure()
   },
 
   teamAScore:function(e){
@@ -240,19 +264,53 @@ Page({
     console.log(e.currentTarget.dataset.item)
     let item = e.currentTarget.dataset.item
     if(item == 'A'){
+      if(this.data.pauseTimeA >= 2){
+        util.showMassage("暂停失败：次数不够")
+        return
+      }
       this.setData({
         pauseTimeA : this.data.pauseTimeA + 1,
         curProcedure: this.data.curProcedure + 'C'
       })
     }
     else{
+      if(this.data.pauseTimeB >= 2){
+        util.showMassage("暂停失败：次数不够")
+        return
+      }
       this.setData({
-        pauseTimeA : this.data.pauseTimeB + 1,
+        pauseTimeB : this.data.pauseTimeB + 1,
         curProcedure: this.data.curProcedure + 'D'
       })
     }
     this.recordPoints()
     this.startTimeTicker(30)
+  },
+
+  exchangeButton: function(e){
+    console.log(e.currentTarget.dataset.item)
+    let item = e.currentTarget.dataset.item
+    if(item == 'A'){
+      if(this.data.exchangeTimeA >= 6){
+        util.showMassage("换人失败：次数不够")
+        return
+      }
+      this.setData({
+        exchangeTimeA : this.data.exchangeTimeA + 1,
+        curProcedure: this.data.curProcedure + 'E'
+      })
+    }
+    else{
+      if(this.data.exchangeTimeB >= 6){
+        util.showMassage("换人失败：次数不够")
+        return
+      }
+      this.setData({
+        exchangeTimeB : this.data.exchangeTimeB + 1,
+        curProcedure: this.data.curProcedure + 'F'
+      })
+    }
+    this.recordPoints()
   },
 
   submitScore: function(e){
