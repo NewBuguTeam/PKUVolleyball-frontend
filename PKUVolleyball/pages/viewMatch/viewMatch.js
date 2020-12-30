@@ -33,8 +33,10 @@ Page({
   },
 
   GetNewDate: function(oldDate, d){
-    var newDate = oldDate
-    newDate.day += d
+    var newDate={year:0,month:0,day:0}
+    newDate.year = oldDate.year
+    newDate.month = oldDate.month
+    newDate.day = oldDate.day + Number(d)
     this.UpdateMonthDay(newDate.year)
     while(newDate.day > this.data.monthDay[newDate.month - 1]){
       newDate.day -= this.data.monthDay[newDate.month - 1]
@@ -358,6 +360,9 @@ Page({
       pastDate: curDate,
       futureDate: this.GetNewDate(curDate, -1)
     })
+    console.log("today", curDate)
+    console.log("pastDate", this.data.pastDate)
+    console.log("futureDate", this.data.futureDate)
     this.BackRequest(1)
     this.ForwardRequest(1)
   },
