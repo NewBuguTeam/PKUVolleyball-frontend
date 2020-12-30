@@ -12,7 +12,9 @@ Page({
     adminIdentity: "admin",
     //colors: ["#FF375F","#95C8FA","#FFD60A","#30D158"],
     //colors: ["#FF7F50",  "#FFA07A", "#FFDEAD", "#F0E68C"],
-    colors: ["#A0522D",  "#CD5C5C", "#BC8F8F", "#F08080"],
+    //colors: ["#A0522D",  "#CD5C5C", "#BC8F8F", "#F08080"],
+    //colors: ["#8A2BE2",  "#6A5ACD", "#9370DB", "#7B68EE"],
+    colors: ["#4169e1",  "#1e90ff", "#6495ed", "#00bfff"],
     groupLists: []
   },
 

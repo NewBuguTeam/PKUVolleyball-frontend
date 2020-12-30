@@ -27,11 +27,6 @@
     <calendar
       id="calendar"
       config="{{calendarConfig}}"
-      bind:takeoverTap="takeoverTap"
-      bind:afterTapDate="afterTapDate"
-      bind:afterCalendarRender="afterCalendarRender"
-      bind:onSwipe="onSwipe"
-      bind:whenChangeMonth="whenChangeMonth"
     />
     <view class="afterLogText">今天的比赛：</view>
     <view class="GameList" wx:for="{{todayList}}" wx:key="key" wx:for-inde="key" id="{{key}}" data-item="{{item}}" bindtap="startScore">
