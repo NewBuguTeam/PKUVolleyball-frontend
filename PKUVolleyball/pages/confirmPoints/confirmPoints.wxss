@@ -83,14 +83,14 @@
   border-radius: 50%;
   justify-self: flex-end;
   align-self: flex-end;
-  background-color: green;
+  background-color: #467fd7;
   text-align: center;
   justify-content: center;
   margin-left: 20rpx;
 }
 
 .curRoundText{
-  background-color: lightgreen;
+  background-color: lightblue;
   margin-left: 6rpx;
   margin-right: 6rpx;
   font-size: large;
@@ -139,7 +139,7 @@ image{
   border-radius: 50%;
   justify-self: flex-end;
   align-self: flex-end;
-  background-color: red;
+  background-color: #f93324;
   text-align: center;
   justify-content: center;
   margin-right: 20rpx;
