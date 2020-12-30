@@ -194,7 +194,7 @@ Page({
           }
             
           self.setData({
-              imageSrc: "../../images/icon1.jpg",
+              imageSrc: res.data.icon,
               school: res.data.school
             })
           app.globalData.school = res.data.school
@@ -284,12 +284,12 @@ Page({
             app.globalData.identity = "admin"
           } 
           self.setData({
-              imageSrc: "../../images/icon1.jpg",
+              imageSrc: res.data.icon,
               school: res.data.school,
               username: res.data.username
             })
           app.globalData.school = res.data.school
-          app.globalData.iconUrl = "../../images/icon1.jpg";
+          app.globalData.iconUrl = res.data.icon;
       },
       fail: function(res) {
           console.log('登陆失败！' + res.errMsg)
