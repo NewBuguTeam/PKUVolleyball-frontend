@@ -56,14 +56,23 @@
       </view>
     </view>
   </view>
-  <view wx:if="{{curWinner!=unKnownWinner}}">
-    <button class="submitButton" bindtap="submitScore" type="default" wx:if="{{finalWinner==unKnownWinner}}"> 
-      本局结束，点击进入下局
-    </button>
-    <button class="submitButton" bindtap="submitFinal" type="default" wx:else> 
-      本场结束，点击上传数据
-    </button>
+  <view class="bottomBar">
+    <view wx:if="{{curWinner!=unKnownWinner}}">
+      <view class="submitButton" bindtap="submitScore" style="background-color:green" wx:if="{{finalWinner==unKnownWinner}}"> 
+        <text class="rollBackText">下局</text>
+      </view>
+      <view class="submitButton" bindtap="submitFinal" style="background-color:green" wx:else> 
+        <text class="rollBackText">上传</text>
+      </view>
+    </view>
+    <view wx:else>
+
+    </view>
+    <view class="rollBack" bindtap="rollBack">
+      <text class="rollBackText">回退</text>
+    </view>
   </view>
+  
   
 </view>
 <view class="TimeTickerPage" wx:else>

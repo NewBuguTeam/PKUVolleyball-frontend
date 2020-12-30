@@ -37,15 +37,19 @@ Page({
 
   parseProcedure: function(){
     let procedure = this.data.curProcedure
-    let pa = 0, pb = 0, ea = 0, eb = 0
+    let sa = 0, sb = 0, pa = 0, pb = 0, ea = 0, eb = 0
     for(var i = 0, n = procedure.length; i < n; i++){
-      if(procedure[i] == 'C') pa++
+      if(procedure[i] == 'A') sa++
+      else if(procedure[i] == 'B') sb++ 
+      else if(procedure[i] == 'C') pa++
       else if(procedure[i] == 'D') pb++
       else if(procedure[i] == 'E') ea++
       else if(procedure[i] == 'F') eb++
     }
-    console.log(procedure,pa,pb,ea,eb)
+    console.log(procedure,sa,sb,pa,pb,ea,eb)
     this.setData({
+      curPointA: sa,
+      curPointB: sb,
       pauseTimeA: pa,
       pauseTimeB: pb,
       exchangeTimeA: ea,
@@ -84,6 +88,11 @@ Page({
           finalWinner: "B"
         })
         return
+      }
+      else{
+        this.setData({
+          finalWinner: "unKnown"
+        })
       }
     }
   },
@@ -465,6 +474,22 @@ Page({
 
       }
     })
+  },
+
+  rollBack: function(e){
+    let size = this.data.curProcedure.length
+    if(size == 0){
+      util.showMassage("不能再回退了")
+    }
+    else{
+      this.setData({
+        curProcedure : this.data.curProcedure.substr(0, size - 1)
+      })
+      this.parseProcedure()
+      this.judgeWinner()
+      this.judgeFinalWinner()
+      this.recordPoints()
+    }
   },
 
   /**
