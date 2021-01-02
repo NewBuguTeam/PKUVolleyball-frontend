@@ -44,7 +44,10 @@ Page({
     todayList: [],
     school: "",
     gender: "",
-    genderName: { "M": "联赛", "F": "女子"}
+    genderName: { "M": "联赛", "F": "女子"},
+    InProgress: "进行中",
+    InPast: "已结束",
+    InFuture: "未开始"
   },
 
   InputUsername: function(e){
@@ -110,8 +113,12 @@ Page({
           }
           if((Number(date[0]) == Number(today.year)) && (Number(date[1]) == Number(today.month)) && (Number(date[2]) == Number(today.day)))
             for(var j = 0; j < matchList[i].matches.length; j++){
+              let timeIndex = 'todayList[' + j + '].time'
+              let time = matchList[i].matches[j].matchTime.split(' ')[1].split(":")
+              let timeString = time[0] + ":" + time[1]
               self.setData({
-                todayList: self.data.todayList.concat(matchList[i].matches[j])
+                todayList: self.data.todayList.concat(matchList[i].matches[j]),
+                [timeIndex]: timeString
               })
             }
         }
