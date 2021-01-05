@@ -8,7 +8,13 @@
 
 【本地运行方法】
 
-后端下载与运行：在 https://github.com/NewBuguTeam/PKUVolleyball-backend 网页中下载后端代码，并按照对应的Readme安装好数据库和配置好环境，使得后端可以运行在 127.0.0.1/5000 下
+后端下载与运行：在 https://github.com/NewBuguTeam/PKUVolleyball-backend 网页中下载后端代码，并按照对应的Readme安装好数据库和配置好环境，使得后端可以运行在 127.0.0.1/5000 下，需要修改`app.js`中的`globalData`中的`rootUrl`为注释掉的本地端口
+
+【部署到服务器上的使用方法】
+
+你不需要做什么，只需要保证服务器畅通就可以了
+
+
 
 前端打开工具：微信开发者工具，可在下面网址打开，下载稳定版
 
@@ -16,17 +22,15 @@ https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
 
 本目录下的
 
-`./PKUVolleyball` 中是前端代码，git clone 到本地后，用微信开发者工具打开对应的文件夹即可。
+`./PKUVolleyball` 中是前端代码，git clone 到本地后，切换到noEncrypted的话就不需要在utils中添加Key.js，用微信开发者工具打开对应的文件夹即可。
+
+需要下载微信开发者工具打开对应的目录，就开始运行了。
 
 
 
-需要下载微信开发者工具打开对应的目录，就可以查看目前的工作情况
+## 实现的功能
 
-
-
-## 小程序 功能
-
-打造一款校园内可以供使用的排球比赛管理小程序
+目标是打造一款校园内可以供使用的排球比赛管理小程序
 
 
 
@@ -96,7 +100,7 @@ https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
 
 可以通过这个功能新建一个裁判/管理员的账号
 
-#### 上传分组（暂未实现）
+#### 上传分组（后端功能暂未实现）
 
 在管理员的查看分组页面，可以上传.csv文件来导入分组情况
 
@@ -106,3 +110,10 @@ https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
 
 只能添加组内的比赛，可以设定相关的比赛时间地点信息。
 
+
+
+## 联系方式
+
+Email : 1700012899@pku.edu.cn
+
+如果遇到什么问题，欢迎反馈提问
