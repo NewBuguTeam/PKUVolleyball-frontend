@@ -34,7 +34,8 @@ App({
     })
   },
   globalData: {
-    rootUrl: 'http://127.0.0.1:5000/',
+    //rootUrl: 'http://127.0.0.1:5000/',
+    rootUrl: 'http://39.98.75.232/',
     userInfo: null,
     identity: "visitor",
     iconUrl: "../../images/guest.png",

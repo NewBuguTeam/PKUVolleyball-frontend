@@ -77,14 +77,20 @@
 }
 
 .submitButton{
-  padding: 0;
-  align-self: start;
-  margin-bottom: 10rpx;
-  font-size: medium;
+  display: flex;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  justify-self: flex-end;
+  align-self: flex-end;
+  background-color: #467fd7;
+  text-align: center;
+  justify-content: center;
+  margin-left: 20rpx;
 }
 
 .curRoundText{
-  background-color: lightgreen;
+  background-color: lightblue;
   margin-left: 6rpx;
   margin-right: 6rpx;
   font-size: large;
@@ -100,12 +106,9 @@
 }
 
 .timeTickerPage{
-  width: 100%;
-  height: 100%;
   background-color: gray;
   display: flex;
   flex-direction: column;
-  position: fixed;
 }
 
 .timeTicker{
@@ -124,4 +127,31 @@ image{
   width: 20rpx;
   height: 20rpx;
   margin: 5rpx;
+}
+
+.rollBack{
+  display: flex;
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  justify-self: flex-end;
+  align-self: flex-end;
+  background-color: #f93324;
+  text-align: center;
+  justify-content: center;
+  margin-right: 20rpx;
+}
+
+.rollBackText{
+  color: white;
+  font-size: medium;
+  align-self: center;
+}
+
+.bottomBar{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 3rpx;
 }

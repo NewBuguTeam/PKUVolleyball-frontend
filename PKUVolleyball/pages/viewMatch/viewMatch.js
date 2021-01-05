@@ -20,7 +20,11 @@ Page({
     Date:{},
     monthDay: [31,28,31,30,31,30,31,31,30,31,30,31],
     pastMatchList: [],
-    futureMatchList: []
+    futureMatchList: [],
+    todayMatchList: [],
+    InProgress: "进行中",
+    InPast: "已结束",
+    InFuture: "未开始"
   },
 
   UpdateMonthDay: function(y){
@@ -33,8 +37,10 @@ Page({
   },
 
   GetNewDate: function(oldDate, d){
-    var newDate = oldDate
-    newDate.day += d
+    var newDate={year:0,month:0,day:0}
+    newDate.year = oldDate.year
+    newDate.month = oldDate.month
+    newDate.day = oldDate.day + Number(d)
     this.UpdateMonthDay(newDate.year)
     while(newDate.day > this.data.monthDay[newDate.month - 1]){
       newDate.day -= this.data.monthDay[newDate.month - 1]
@@ -61,7 +67,7 @@ Page({
     var that = this
     var index = e.currentTarget.id
     var query = JSON.stringify(that.data.pastMatchList[index])
-    console.log(e.currentTarget.dataset.item)
+    //console.log(e.currentTarget.dataset.item)
     app.globalData.matchInfo = e.currentTarget.dataset.item
     wx.navigateTo({
       url: '../matchInfo/matchInfo',
@@ -75,9 +81,9 @@ Page({
 
   timeParse: function(time){
     time = time.split(' ')[0]
-    console.log(time)
+    //console.log(time)
     let list = time.split('-')
-    console.log(list)
+    //console.log(list)
     let year = parseInt(list[0])
     let month = parseInt(list[1])
     let day = parseInt(list[2])
@@ -90,10 +96,10 @@ Page({
   },
 
   getTime: function(time){
-    console.log(time)
+    //console.log(time)
     time = time.split(' ')[1]
     let times = time.split(':')
-    console.log(times)
+    //console.log(times)
     return times[0] + ":" + times[1]
   },
 
@@ -126,16 +132,17 @@ Page({
         teamA: oldList[key].teamA,
         teamB: oldList[key].teamB,
         score: oldList[key].point,
+        status: oldList[key].status,
         location: oldList[key].location,
         umpireImageUrl: oldList[key].umpireIcon,
         viceUmpireImageUrl: oldList[key].viceUmpireIcon
       }
-      console.log(item)
+      //console.log(item)
       curListItem.list[matchIndex++] = item
-      console.log(curListItem)
+      //console.log(curListItem)
     }
     newList[dateIndex] = curListItem
-    console.log("newList", newList)
+    //console.log("newList", newList)
     return newList
   },
 
@@ -255,7 +262,7 @@ Page({
   BackRequest: function(day){
     let self = this;
     var queryDate = this.getDateString(this.GetNewDate(this.data.pastDate, 0))
-    console.log("Query:", queryDate)
+    //console.log("Query:", queryDate)
     // 先获得过去的比赛
     wx.request({
       url: app.globalData.rootUrl + '/viewMatches',
@@ -272,7 +279,7 @@ Page({
       },
       
       success:function(res){
-          console.log('request returns: ', res.data)
+          //console.log('request returns: ', res.data)
           let oldList = res.data.matches
           let newList = self.Transform(oldList)
           var length = res.data.matches.length;
@@ -298,7 +305,7 @@ Page({
   ForwardRequest: function(day,showMassage=true){
     let self = this;
     var queryDate = this.getDateString(this.GetNewDate(this.data.futureDate, 0))
-    console.log(queryDate)
+    //console.log(queryDate)
     wx.request({
       url: app.globalData.rootUrl + '/viewMatches',
       data: {
@@ -314,16 +321,43 @@ Page({
       },
       
       success:function(res){
-          console.log('request returns: ', res.data)
+          //console.log('request returns: ', res.data)
           let oldList = res.data.matches
           let newList = self.Transform(oldList)
           var length = res.data.matches.length;
           if(length > 0){
             self.setData({
-              futureMatchList: self.data.futureMatchList.concat(newList),
               futureDate: self.timeParse(res.data.matches[length-1].time)
             })
-            //console.log(self.data.futrueDate)
+            console.log(self.data.futureMatchList)
+            var curDate = util.formatDate(new Date())
+            if(self.data.futureMatchList.length == 0 && newList[0].date == self.getDateString(curDate)){
+              let todayList = newList[0].list
+              let newfutureList = []
+              for(var i = 1; i < newList.length; i++){
+                newfutureList = newfutureList.concat(newList[i])
+              }
+              self.setData({
+                todayMatchList: [{date: self.getDateString(curDate), list:todayList}],
+                futureMatchList: newfutureList
+              })
+            }
+            else if(self.data.futureMatchList.length != 0 && self.data.futureMatchList[0].date == self.getDateString(curDate)){
+              let todayList = self.data.futureMatchList[0].list
+              let newfutureList = []
+              for(var i = 1; i < self.data.futureMatchList.length; i++){
+                newfutureList = newfutureList.concat(self.data.futureMatchList[i])
+              }
+              self.setData({
+                todayMatchList: [{date: self.getDateString(curDate), list:todayList}],
+                futureMatchList: newfutureList
+              })
+            }
+            else{
+              self.setData({
+                futureMatchList: self.data.futureMatchList.concat(newList)
+              })
+            }
           }
           else{
             if(showMassage)
@@ -338,14 +372,14 @@ Page({
 
   RefreshFuture: function(){
     var curDate = util.formatDate(new Date())
-    var deltaDate = this.data.futureMatchList.length
+    var deltaDate = this.data.futureMatchList.length + this.data.todayMatchList.length
     this.setData({
       futureDate: this.GetNewDate(curDate, -1),
       futureMatchList: []
     })
-    console.log("deltaDate:", deltaDate)
+    //console.log("deltaDate:", deltaDate)
     this.ForwardRequest(deltaDate, false)
-    console.log("futrueMatchList:", this.data.futureMatchList)
+    //console.log("futrueMatchList:", this.data.futureMatchList)
   },
 
   /**
@@ -358,8 +392,12 @@ Page({
       pastDate: curDate,
       futureDate: this.GetNewDate(curDate, -1)
     })
+    // console.log("today", curDate)
+    // console.log("pastDate", this.data.pastDate)
+    // console.log("futureDate", this.data.futureDate)
     this.BackRequest(1)
-    this.ForwardRequest(1)
+    this.ForwardRequest(2)
+    console.log(this.data.futureMatchList)
   },
 
   /**
@@ -389,7 +427,7 @@ Page({
         },
         
         success : function(res){
-          console.log("res:",res,res.data)
+          //console.log("res:",res,res.data)
           self.setData({
             Mgroup: res.data.Mgroup,
             Fgroup: res.data.Fgroup

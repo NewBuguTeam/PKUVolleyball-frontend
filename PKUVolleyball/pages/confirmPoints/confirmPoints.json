@@ -1,5 +1,4 @@
 {
   "usingComponents": {},
-  "pageOrientation": "landscape",
-  "disableScroll":true
+  "pageOrientation": "landscape"
 }

@@ -29,7 +29,7 @@ Page({
     calendarConfig: {
       multi: true,
       markToday: '今',
-      theme: 'default' // 日历主题，目前共两款可选择，默认 default 及 elegant，自定义主题色在参考 /theme 文件夹
+      theme: 'elegant' // 日历主题，目前共两款可选择，默认 default 及 elegant，自定义主题色在参考 /theme 文件夹
     },
     identityName: {"visitor": "游客", "umpire": "裁判", "admin": "管理员"},
     identity: "visitor",
@@ -44,7 +44,10 @@ Page({
     todayList: [],
     school: "",
     gender: "",
-    genderName: { "M": "联赛", "F": "女子"}
+    genderName: { "M": "联赛", "F": "女子"},
+    InProgress: "进行中",
+    InPast: "已结束",
+    InFuture: "未开始"
   },
 
   InputUsername: function(e){
@@ -101,7 +104,7 @@ Page({
         
         for(var i = 0; i < size; i++){
           let date = matchList[i].date.split('-')
-          highLight[i]={year:Number(date[0]), month:Number(date[1]), date:Number(date[2])}
+          highLight[i]={year:Number(date[0]), month:Number(date[1]), date:Number(date[2]), color: "green", todoText:matchList[i].matches.length + "场比赛"}
           
           for(var j = 0; j < matchList[i].matches.length; j++){
             self.setData({
@@ -110,15 +113,27 @@ Page({
           }
           if((Number(date[0]) == Number(today.year)) && (Number(date[1]) == Number(today.month)) && (Number(date[2]) == Number(today.day)))
             for(var j = 0; j < matchList[i].matches.length; j++){
+              let timeIndex = 'todayList[' + j + '].time'
+              let time = matchList[i].matches[j].matchTime.split(' ')[1].split(":")
+              let timeString = time[0] + ":" + time[1]
               self.setData({
-                todayList: self.data.todayList.concat(matchList[i].matches[j])
+                todayList: self.data.todayList.concat(matchList[i].matches[j]),
+                [timeIndex]: timeString
               })
             }
         }
         console.log(highLight)
         const calendar = self.selectComponent('#calendar').calendar
-        calendar.cancelSelectedDates()
-        calendar.setSelectedDates(highLight)
+        //calendar.cancelSelectedDates()
+        //calendar.setSelectedDates(highLight)
+        calendar.clearTodos()
+        calendar.setTodos({
+          pos: 'bottom',
+          dotColor: 'purple', // 待办点标记颜色
+          circle: true, // 待办圆圈标记设置（如圆圈标记已签到日期），该设置与点标记设置互斥
+          showLabelAlways: false, // 点击时是否显示待办事项（圆点/文字），在 circle 为 true 及当日历配置 showLunar 为 true 时，此配置失效
+          dates: highLight
+        })
       },
       fail: function(res) {
           console.log('登陆失败！' + res.errMsg)
@@ -194,7 +209,7 @@ Page({
           }
             
           self.setData({
-              imageSrc: "../../images/icon1.jpg",
+              imageSrc: res.data.icon,
               school: res.data.school
             })
           app.globalData.school = res.data.school
@@ -209,7 +224,7 @@ Page({
   SignOut: function (e){
     var self = this
     wx.request({
-      url: app.globalData.rootUrl + '/logout',
+      url: app.globalData.rootUrl + 'logout',
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded',
@@ -284,12 +299,12 @@ Page({
             app.globalData.identity = "admin"
           } 
           self.setData({
-              imageSrc: "../../images/icon1.jpg",
+              imageSrc: res.data.icon,
               school: res.data.school,
               username: res.data.username
             })
           app.globalData.school = res.data.school
-          app.globalData.iconUrl = "../../images/icon1.jpg";
+          app.globalData.iconUrl = res.data.icon;
       },
       fail: function(res) {
           console.log('登陆失败！' + res.errMsg)

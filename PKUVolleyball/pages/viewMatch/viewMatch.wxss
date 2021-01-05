@@ -65,3 +65,19 @@
   margin: 5rpx;
   border-radius: 50%;
 }
+
+.inProgress{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  border-radius: 5%;
+  margin-left: 10rpx;
+}
+
+.progressText{
+  align-self: center;
+  justify-self: center;
+  color: red;
+}

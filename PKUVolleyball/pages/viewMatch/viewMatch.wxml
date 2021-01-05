@@ -19,6 +19,60 @@
     </view>
   </view>
 
+  <view class="MatchListPerDay" wx:for="{{todayMatchList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+    <view class="DateView">
+      <text class = "DateText">{{item.date}}</text>
+    </view>
+    <view class="MatchCard" wx:for="{{item.list}}" wx:key="key" wx:for-inde="key" id="{{key}}">
+      <view class="InfoView">
+        <text class="InfoText"> {{item.time}}</text>
+        <text class="InfoText"> {{genderName[item.gender]}}{{item.group}}</text>
+      </view>
+      <view class="TeamCard" style="background-color:#467fd7" data-item="{{item}}" bindtap="ClickForMatchDetail" wx:if="{{item.status==InPast}}">
+        <text class="TeamNameText">{{item.teamA}}</text>
+      </view>
+      <view class="TeamCard" data-item="{{item}}" bindtap="ClickForMatchDetail" style="background-color:#83aae5" wx:else>
+        <text class="TeamNameText">{{item.teamA}}</text>
+      </view>
+
+      <view class="TeamCard" style="background-color:#f93324" data-item="{{item}}" bindtap="ClickForMatchDetail" wx:if="{{item.status==InPast}}">
+        <text class="TeamNameText">{{item.teamB}}</text>
+      </view>
+      <view class="TeamCard" data-item="{{item}}" bindtap="ClickForMatchDetail" style="background-color:#fa7470" wx:else>
+        <text class="TeamNameText">{{item.teamB}}</text>
+      </view>
+      <text class="ScoreText" wx:if="{{item.status==InPast}}">{{item.score}}</text>
+      <view class="inProgress" wx:elif="{{item.status==InProgress}}">
+        进行中
+      </view> 
+      <view class="buttonArea" wx:else>
+        <view wx:if="{{item.umpireImageUrl==nullUrl}}">
+          <view wx:if="{{identity!=umpireIdentity || (item.group==Mgroup && item.gender=='M') || (item.group==Fgroup && item.gender=='F')}}">
+            <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
+          </view>
+          <view wx:else>
+            <image src="../../images/addButton.jpg" class="buttonImage" data-item="{{item}}" bindtap="umpireRequest"></image>
+          </view>
+        </view>
+        <view wx:else>
+          <image src="{{item.umpireImageUrl}}" class="buttonImage" data-item="{{item}}" bindtap="umpireQuit"></image>
+        </view>
+
+        <view wx:if="{{item.viceUmpireImageUrl==nullUrl}}">
+          <view wx:if="{{identity!=umpireIdentity || (item.group==Mgroup && item.gender=='M') || (item.group==Fgroup && item.gender=='F') }}">
+            <image src="../../images/forbidAddButton.jpg" class="buttonImage"></image>
+          </view>
+          <view wx:else>
+            <image src="../../images/addButton.jpg" class="buttonImage" data-item="{{item}}" bindtap="viceUmpireRequest"></image>
+          </view>
+        </view>
+        <view wx:else>
+          <image src="{{item.viceUmpireImageUrl}}" class="buttonImage" data-item="{{item}}" bindtap="viceUmpireQuit"></image>
+        </view>
+    </view>
+    </view>
+  </view>
+
   <view class="MatchListPerDay" wx:for="{{futureMatchList}}" wx:key="key" wx:for-inde="key" id="{{key}}">
     <view class="DateView">
       <text class = "DateText">{{item.date}}</text>
