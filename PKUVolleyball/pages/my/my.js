@@ -224,7 +224,7 @@ Page({
   SignOut: function (e){
     var self = this
     wx.request({
-      url: app.globalData.rootUrl + '/logout',
+      url: app.globalData.rootUrl + 'logout',
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded',
