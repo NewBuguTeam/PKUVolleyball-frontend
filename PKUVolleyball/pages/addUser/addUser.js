@@ -66,10 +66,10 @@ Page({
       success (res) {
         if (res.confirm) {
           console.log('用户点击确定')
-          self.encryptPassword()
-          console.log(self.data.encryptedPassword)
-          self.decryptPassword()
-          console.log(self.data.password)
+          //self.encryptPassword()
+          //console.log(self.data.encryptedPassword)
+          //self.decryptPassword()
+          //console.log(self.data.password)
           wx.request({
             url: app.globalData.rootUrl + 'admin/addUser',
             data: {
@@ -105,10 +105,10 @@ Page({
 
   addUser: function(e){
     var self = this
-    this.encryptPassword()
-    console.log(this.data.encryptedPassword)
-    this.decryptPassword()
-    console.log(this.data.password)
+    //this.encryptPassword()
+    //console.log(this.data.encryptedPassword)
+    //this.decryptPassword()
+    //console.log(this.data.password)
     wx.request({
       url: app.globalData.rootUrl + 'admin/addUser',
       data: {

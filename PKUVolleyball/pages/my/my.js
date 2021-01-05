@@ -3,7 +3,7 @@ const app = getApp()
 var storageTime = 30 * 60
 var util = require('../../utils/util.js')
 var RSA = require('../../utils/wx_rsa.js')
-var Key = require('../../utils/Key.js')
+//var Key = require('../../utils/Key.js')
 
 import plugin from '../../components/v2/plugins/index'
 
@@ -152,11 +152,11 @@ Page({
 
   SignIn: function(e){
     var self = this;
-    this.encryptPassword()
-    console.log("加密后", this.data.encryptedassword)
-    this.decryptPassword()
-    console.log("解密后", this.data.password)
-    console.log(app.globalData.identity);
+    //this.encryptPassword()
+    //console.log("加密后", this.data.encryptedassword)
+    //this.decryptPassword()
+    //console.log("解密后", this.data.password)
+    //console.log(app.globalData.identity);
     wx.request({
       url: app.globalData.rootUrl + '/login',
       data: {
@@ -224,7 +224,7 @@ Page({
   SignOut: function (e){
     var self = this
     wx.request({
-      url: app.globalData.rootUrl + '/logout',
+      url: app.globalData.rootUrl + 'logout',
       method: 'GET',
       header: {
         'content-type': 'application/x-www-form-urlencoded',
@@ -261,7 +261,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    app.globalData.privateKey = Key.privateKey
+    //app.globalData.privateKey = Key.privateKey
     // console.log(privateKey)
 
     var self = this;
