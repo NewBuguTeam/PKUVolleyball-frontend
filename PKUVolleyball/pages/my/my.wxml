@@ -29,8 +29,17 @@
       config="{{calendarConfig}}"
     />
     <view class="afterLogText">今天的比赛：</view>
-    <view class="GameList" wx:for="{{todayList}}" wx:key="key" wx:for-inde="key" id="{{key}}" data-item="{{item}}" bindtap="startScore">
-    {{genderName[item.gender]}} {{item.teamA}} vs {{item.teamB}} {{item.matchTime}} {{item.location}}
+    <view class="GameList" wx:for="{{todayList}}" wx:key="key" wx:for-index="key" id="{{key}}">
+      <view wx:if="{{item.status==InProgress}}" data-item="{{item}}" bindtap="startScore">
+        {{genderName[item.gender]}} {{item.group}} {{item.teamA}} vs {{item.teamB}} {{item.time}} {{item.location}} {{InProgress}}
+      </view>
+      <view wx:elif="{{item.status==InFuture}}">
+        {{genderName[item.gender]}} {{item.group}} {{item.teamA}} vs {{item.teamB}} {{item.time}} {{item.location}} {{InFuture}}
+      </view>
+      <view wx:else data-item="{{item}}">
+        {{genderName[item.gender]}} {{item.group}} {{item.teamA}} vs {{item.teamB}} {{item.time}} {{item.location}} {{InPast}}
+      </view>
+    
     </view>
   </view>
   <view wx:else>
